@@ -94,8 +94,7 @@ public class App {
     private static Gender chooseYourGender(Scanner input) {
         Gender.chooseYourGender();
         int genderOption = input.nextInt();
-        Gender gender = Gender.fromValue(genderOption);
-        return gender;
+        return Gender.fromValue(genderOption);
     }
 
     static private BedType[] chooseBedType(Scanner input) {

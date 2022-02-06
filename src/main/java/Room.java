@@ -2,8 +2,8 @@ import java.util.Arrays;
 
 public class Room {
 
-    private int number;
-    private BedType[] bedType;
+    private final int number;
+    private final BedType[] bedType;
 
     public Room(int number, BedType[] bedType) {
         this.number = number;

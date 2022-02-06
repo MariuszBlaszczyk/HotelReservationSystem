@@ -3,7 +3,7 @@ public enum BedType {
     DOUBLE(2),
     KING_SIZE(3);
 
-    int value;
+    final int value;
 
 
     BedType(int value) {

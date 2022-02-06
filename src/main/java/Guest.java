@@ -2,10 +2,10 @@ import java.util.Objects;
 
 public class Guest {
 
-    private String firstName;
-    private String lastName;
-    private int age;
-    private Gender gender;
+    private final String firstName;
+    private final String lastName;
+    private final int age;
+    private final Gender gender;
 
     public Guest(String firstName, String lastName, int age, Gender gender) {
         this.firstName = firstName;
