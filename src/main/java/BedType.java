@@ -15,15 +15,6 @@ public enum BedType {
         return value;
     }
 
-    static BedType fromValue(int userValue) {
-        BedType[] values = values();
-        for (BedType bedType : values) {
-            if (bedType.getValue() == userValue)
-                return bedType;
-        }
-        return BedType.SINGLE;
-    }
-
 
     static void availableBedTypes() {
         System.out.println("Available bed types. Select a number.");
@@ -32,6 +23,14 @@ public enum BedType {
         }
     }
 
+    static BedType fromValue(int userValue) {
+        BedType[] values = values();
+        for (BedType bedType : values) {
+            if (bedType.getValue() == userValue)
+                return bedType;
+        }
+        return BedType.SINGLE;
+    }
 
 
     @Override

@@ -33,7 +33,7 @@ public class App {
             System.out.println("Room number: ");
             int numberRoom = input.nextInt();
             BedType bedtype = chooseBedType(input);
-            Room newRoom = new Room(numberRoom,bedtype);
+            Room newRoom = new Room(numberRoom, bedtype);
             System.out.println("A new room has been created:\n" + newRoom);
             return newRoom;
         } catch (Exception e) {
@@ -79,7 +79,9 @@ public class App {
             String lastName = input.next();
             System.out.println("Please enter the age: ");
             int age = input.nextInt();
-            Guest newGuest = new Guest(firstName, lastName, age);
+            System.out.println("Please, specify your gender: ");
+            Gender gender = chooseYourGender(input);
+            Guest newGuest = new Guest(firstName, lastName, age, gender);
             System.out.println("New visitors added: " + newGuest);
             return newGuest;
         } catch (Exception e) {
@@ -87,6 +89,13 @@ public class App {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static Gender chooseYourGender(Scanner input) {
+        Gender.chooseYourGender();
+        int genderOption = input.nextInt();
+        Gender gender = Gender.fromValue(genderOption);
+        return gender;
     }
 
     static private BedType chooseBedType(Scanner input) {
