@@ -27,15 +27,14 @@ public class App {
 
     }
 
-    static Room createNewRoom(Scanner input) {
+    private static Room createNewRoom(Scanner input) {
         System.out.println("Creating a new room.");
         try {
             System.out.println("Room number: ");
-            int number = input.nextInt();
-            System.out.println("Number of beds: ");
-            int beds = input.nextInt();
-            Room newRoom = new Room(number, beds);
-            System.out.println("A new room has been created: " + newRoom);
+            int numberRoom = input.nextInt();
+            BedType bedtype = chooseBedType(input);
+            Room newRoom = new Room(numberRoom,bedtype);
+            System.out.println("A new room has been created:\n" + newRoom);
             return newRoom;
         } catch (Exception e) {
             System.out.println("It was not possible to create a new room. The number and number of beds must be numbers.");
@@ -56,7 +55,7 @@ public class App {
         System.out.println("\n=========================\n");
     }
 
-    static int getActionFromUser(Scanner in) {
+    private static int getActionFromUser(Scanner in) {
         System.out.println("1. Add new guest.");
         System.out.println("2. Add new room.");
         System.out.println("3. Search for a visitor.");
@@ -71,7 +70,7 @@ public class App {
         return option;
     }
 
-    static Guest createNewGuest(Scanner input) {
+    private static Guest createNewGuest(Scanner input) {
         System.out.println("We create a new guest.");
         try {
             System.out.println("Please enter a first name: ");
@@ -88,6 +87,12 @@ public class App {
             e.printStackTrace();
             return null;
         }
+    }
+
+    static private BedType chooseBedType(Scanner input) {
+        BedType.availableBedTypes();
+        int bedTypeOption = input.nextInt();
+        return BedType.fromValue(bedTypeOption);
     }
 
 }

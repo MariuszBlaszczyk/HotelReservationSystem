@@ -1,11 +1,10 @@
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Guest {
 
-    String firstName;
-    String lastName;
-    int age;
+    private String firstName;
+    private String lastName;
+    private int age;
 
     public Guest(String firstName, String lastName, int age) {
         this.firstName = firstName;
@@ -13,18 +12,6 @@ public class Guest {
         this.age = age;
     }
 
-
-//
-//    public Guest addNewGuest(String firstName, String lastName, int age) {
-//        try (Scanner scanner = new Scanner(System.in)) {
-//            firstName = scanner.next();
-//            lastName = scanner.next();
-//            age = scanner.nextInt();
-//        }catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return new Guest(firstName,lastName,age);
-//    }
 
     @Override
     public boolean equals(Object o) {
