@@ -12,6 +12,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return "- room number " + number + ".\n- type of bed: " + Arrays.toString(bedType) + ".";
+        return "- room number " + number + ".\n- number of beds: " + bedType.length +
+                ".\n- type of bed: " + Arrays.toString(bedType) + ".";
     }
 }
