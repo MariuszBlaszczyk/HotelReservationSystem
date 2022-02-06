@@ -73,11 +73,11 @@ public class App {
     private static Guest createNewGuest(Scanner input) {
         System.out.println("We create a new guest.");
         try {
-            System.out.println("Please enter a first name: ");
+            System.out.print("Please enter a first name: ");
             String firstName = input.next();
-            System.out.println("Please enter a last name: ");
+            System.out.print("Please enter a last name: ");
             String lastName = input.next();
-            System.out.println("Please enter the age: ");
+            System.out.print("Please enter the age: ");
             int age = input.nextInt();
             System.out.println("Please, specify your gender: ");
             Gender gender = chooseYourGender(input);
