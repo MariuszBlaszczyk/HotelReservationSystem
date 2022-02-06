@@ -1,11 +1,10 @@
-import java.util.Scanner;
-
 public enum BedType {
     SINGLE(1),
     DOUBLE(2),
     KING_SIZE(3);
 
     int value;
+
 
     BedType(int value) {
         this.value = value;
@@ -33,8 +32,5 @@ public enum BedType {
     }
 
 
-    @Override
-    public String toString() {
-        return "value: " + value;
-    }
+
 }

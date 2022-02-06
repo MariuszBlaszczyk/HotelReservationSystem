@@ -32,8 +32,8 @@ public class App {
         try {
             System.out.println("Room number: ");
             int numberRoom = input.nextInt();
-            BedType bedtype = chooseBedType(input);
-            Room newRoom = new Room(numberRoom, bedtype);
+            BedType[] bedtypes = chooseBedType(input);
+            Room newRoom = new Room(numberRoom, bedtypes);
             System.out.println("A new room has been created:\n" + newRoom);
             return newRoom;
         } catch (Exception e) {
@@ -98,10 +98,17 @@ public class App {
         return gender;
     }
 
-    static private BedType chooseBedType(Scanner input) {
-        BedType.availableBedTypes();
-        int bedTypeOption = input.nextInt();
-        return BedType.fromValue(bedTypeOption);
+    static private BedType[] chooseBedType(Scanner input) {
+        System.out.println("Enter the number of beds in the room");
+        int numberOfBeds = input.nextInt();
+        BedType[] bedTypes = new BedType[numberOfBeds];
+        for (int i = 0; i < bedTypes.length; i++) {
+            BedType.availableBedTypes();
+            int bedTypeOption = input.nextInt();
+            BedType type = BedType.fromValue(bedTypeOption);
+            bedTypes[i] = type;
+        }
+        return bedTypes;
     }
 
 }
