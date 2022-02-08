@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
@@ -12,34 +13,36 @@ public class App {
 
         Scanner input = new Scanner(System.in);
 
-        int option = getActionFromUser(input);
-
-        if (option == 1) {
-            Guest newGuest = createNewGuest(input);
-        } else if (option == 2) {
-            Room newRoom = createNewRoom(input);
-        } else if (option == 3) {
-            System.out.println("Selected option 3.");
-        } else {
-            System.out.println("Incorrect data entered, please enter a number between 1 and 3");
+        try {
+            performAction(input);
+        } catch (WrongOptionException | OnlyNumberException e) {
+            System.out.println("An unexpected error has occurred.");
+            System.out.println("Error code: " + e.getCode());
+            System.out.println("Error message: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("An unexpected error has occurred.");
+            System.out.println("Unknown error code.");
+            System.out.println("Error message: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            System.out.println("I exit the application.");
         }
 
 
     }
 
-    private static Room createNewRoom(Scanner input) {
-        System.out.println("Creating a new room.");
-        try {
-            System.out.println("Room number: ");
-            int numberRoom = input.nextInt();
-            BedType[] bedtypes = chooseBedType(input);
-            Room newRoom = new Room(numberRoom, bedtypes);
-            System.out.println("A new room has been created:\n" + newRoom);
-            return newRoom;
-        } catch (Exception e) {
-            System.out.println("It was not possible to create a new room. The number and number of beds must be numbers.");
-            e.printStackTrace();
-            return null;
+    private static void performAction(Scanner input) {
+        int option = getActionFromUser(input);
+        GuestRepository guestRepository = new GuestRepository();
+        if (option == 1) {
+            Guest newGuest = guestRepository.createNewGuest(input);
+        } else if (option == 2) {
+            Room newRoom = createNewRoom(input);
+        } else if (option == 3) {
+            System.out.println("Selected option 3.");
+        } else {
+            throw new WrongOptionException("Wrong option in main menu.");
         }
     }
 
@@ -63,39 +66,26 @@ public class App {
         int option = 0;
         try {
             option = in.nextInt();
-        } catch (Exception e) {
-            System.out.println("Incorrect input, enter number.");
-            e.printStackTrace();
+        } catch (InputMismatchException e) {
+            throw new OnlyNumberException("Use only numbers in main menu.");
         }
         return option;
     }
 
-    private static Guest createNewGuest(Scanner input) {
-        System.out.println("We create a new guest.");
+    private static Room createNewRoom(Scanner input) {
+        System.out.println("Creating a new room.");
         try {
-            System.out.print("Please enter a first name: ");
-            String firstName = input.next();
-            System.out.print("Please enter a last name: ");
-            String lastName = input.next();
-            System.out.print("Please enter the age: ");
-            int age = input.nextInt();
-            System.out.println("Please, specify your gender: ");
-            Gender gender = chooseYourGender(input);
-            Guest newGuest = new Guest(firstName, lastName, age, gender);
-            System.out.println("New visitors added: " + newGuest);
-            return newGuest;
-        } catch (Exception e) {
-            System.out.println("Wrong age, use numbers.");
-            e.printStackTrace();
-            return null;
+            System.out.println("Room number: ");
+            int numberRoom = input.nextInt();
+            BedType[] bedtypes = chooseBedType(input);
+            Room newRoom = new Room(numberRoom, bedtypes);
+            System.out.println("A new room has been created:\n" + newRoom);
+            return newRoom;
+        } catch (InputMismatchException e) {
+            throw new OnlyNumberException("Use numbers when creating new room.");
         }
     }
 
-    private static Gender chooseYourGender(Scanner input) {
-        Gender.chooseYourGender();
-        int genderOption = input.nextInt();
-        return Gender.fromValue(genderOption);
-    }
 
     static private BedType[] chooseBedType(Scanner input) {
         System.out.println("Enter the number of beds in the room");

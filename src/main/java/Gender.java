@@ -25,8 +25,7 @@ public enum Gender {
             if (gender.getValue() == userValue)
                 return gender;
         }
-        System.out.println("Incorrect option, I set the default gender - " + Gender.FEMALE.name());
-        return Gender.FEMALE;
+        throw new WrongOptionException("Wrong option when selecting gender");
     }
 
 }

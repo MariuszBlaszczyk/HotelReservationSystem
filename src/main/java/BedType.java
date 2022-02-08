@@ -28,9 +28,8 @@ public enum BedType {
             if (bedType.getValue() == userValue)
                 return bedType;
         }
-        return BedType.SINGLE;
+        throw new WrongOptionException("Wrong option when selecting bed type");
     }
-
 
 
 }
