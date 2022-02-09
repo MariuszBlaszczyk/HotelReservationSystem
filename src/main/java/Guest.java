@@ -1,18 +1,6 @@
 import java.util.Objects;
 
-public class Guest {
-
-    private final String firstName;
-    private final String lastName;
-    private final int age;
-    private final Gender gender;
-
-    public Guest(String firstName, String lastName, int age, Gender gender) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.gender = gender;
-    }
+public record Guest(String firstName, String lastName, int age, Gender gender) {
 
     @Override
     public boolean equals(Object o) {

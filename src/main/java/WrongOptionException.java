@@ -1,6 +1,6 @@
 public class WrongOptionException extends ReservationCustomerException {
 
-    private int code = 101;
+    private final int code = 101;
 
 
     public WrongOptionException(String message) {

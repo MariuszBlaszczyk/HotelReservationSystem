@@ -1,14 +1,6 @@
 import java.util.Arrays;
 
-public class Room {
-
-    private final int number;
-    private final BedType[] bedType;
-
-    public Room(int number, BedType[] bedType) {
-        this.number = number;
-        this.bedType = bedType;
-    }
+public record Room(int number, BedType[] bedType) {
 
     @Override
     public String toString() {

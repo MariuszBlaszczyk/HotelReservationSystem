@@ -22,7 +22,7 @@ public enum BedType {
         }
     }
 
-    static BedType fromValue(int userValue) {
+    static BedType chooseFromNumberValue(int userValue) {
         BedType[] values = values();
         for (BedType bedType : values) {
             if (bedType.getValue() == userValue)
