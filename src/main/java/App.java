@@ -3,10 +3,12 @@ import java.util.Scanner;
 
 public class App {
 
+    private static TextUI textUI = new TextUI();
+
     public static void main(String[] args) {
 
         String hotelName = "Overlook Hotel";
-        int currentSystemVersion = 2;
+        int currentSystemVersion = 1;
         boolean isDeveloperVersion = true;
 
         showSystemInfo(hotelName, currentSystemVersion, isDeveloperVersion);
@@ -28,15 +30,13 @@ public class App {
         } finally {
             System.out.println("I exit the application.");
         }
-
-
     }
 
     private static void performAction(Scanner input) {
         int option = getActionFromUser(input);
-        GuestService guestService = new GuestService();
+
         if (option == 1) {
-            Guest newGuest = guestService.createNewGuest(input);
+            textUI.readNewGuestData(input);
         } else if (option == 2) {
             Room newRoom = createNewRoom(input);
         } else if (option == 3) {

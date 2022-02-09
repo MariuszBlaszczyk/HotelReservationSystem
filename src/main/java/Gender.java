@@ -12,20 +12,20 @@ public enum Gender {
         return value;
     }
 
-    static void chooseYourGender() {
+    static void gendersToChooseFrom() {
         System.out.println("Choose your gender");
         for (Gender gender : Gender.values()) {
             System.out.println(gender.name() + " - choose " + gender.getValue() + ".");
         }
     }
 
-    static Gender fromValue(int userValue) {
+    static Gender chooseFromNumberValue(int userValue) {
         Gender[] values = values();
         for (Gender gender : values) {
-            if (gender.getValue() == userValue)
+            if (gender.getValue() == userValue) {
                 return gender;
+            }
         }
         throw new WrongOptionException("Wrong option when selecting gender");
     }
-
 }
