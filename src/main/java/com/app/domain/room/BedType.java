@@ -1,3 +1,7 @@
+package com.app.domain.room;
+
+import com.app.exceptions.WrongOptionException;
+
 public enum BedType {
     SINGLE(1),
     DOUBLE(2),
@@ -15,7 +19,7 @@ public enum BedType {
     }
 
 
-    static void availableBedTypes() {
+    public static void availableBedTypes() {
         System.out.println("Available bed types. Select a number.");
         for (BedType bedtype : BedType.values()) {
             System.out.println(bedtype.name() + " - choose: " + bedtype.getValue());

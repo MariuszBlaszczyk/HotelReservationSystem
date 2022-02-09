@@ -1,3 +1,5 @@
+package com.app.domain.guest;
+
 public class GuestService {
 
     private final GuestRepository guestRepository = new GuestRepository();

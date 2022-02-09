@@ -1,3 +1,5 @@
+package com.app.domain.room;
+
 import java.util.Arrays;
 
 public record Room(int number, BedType[] bedType) {

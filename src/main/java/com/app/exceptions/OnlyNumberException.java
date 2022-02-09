@@ -1,3 +1,5 @@
+package com.app.exceptions;
+
 public class OnlyNumberException extends ReservationCustomerException {
 
     private final int code = 102;

@@ -1,3 +1,14 @@
+package com.app.ui;
+
+import com.app.domain.guest.Gender;
+import com.app.domain.guest.Guest;
+import com.app.domain.guest.GuestService;
+import com.app.domain.room.BedType;
+import com.app.domain.room.Room;
+import com.app.domain.room.RoomService;
+import com.app.exceptions.OnlyNumberException;
+import com.app.exceptions.WrongOptionException;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -29,7 +40,7 @@ public class TextUI {
     public void readNewRoomData(Scanner input) {
         System.out.println("Creating a new room.");
         try {
-            System.out.println("Room number: ");
+            System.out.println("com.app.domain.room.Room number: ");
             int numberRoom = input.nextInt();
             int[] bedType = chooseBedType(input);
             Room newRoom = roomService.createNewRoom(numberRoom, bedType);

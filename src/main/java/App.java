@@ -1,3 +1,5 @@
+import com.app.ui.TextUI;
+
 public class App {
 
     private static final TextUI textUI = new TextUI();

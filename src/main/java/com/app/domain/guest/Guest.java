@@ -1,3 +1,5 @@
+package com.app.domain.guest;
+
 import java.util.Objects;
 
 public record Guest(String firstName, String lastName, int age, Gender gender) {

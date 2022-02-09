@@ -1,3 +1,5 @@
+package com.app.domain.room;
+
 public class RoomService {
 
     private final RoomRepository roomRepository = new RoomRepository();

@@ -1,3 +1,7 @@
+package com.app.domain.guest;
+
+import com.app.exceptions.WrongOptionException;
+
 public enum Gender {
     MALE(1),
     FEMALE(2);
@@ -12,7 +16,7 @@ public enum Gender {
         return value;
     }
 
-    static void gendersToChooseFrom() {
+    public static void gendersToChooseFrom() {
         System.out.println("Choose your gender");
         for (Gender gender : Gender.values()) {
             System.out.println(gender.name() + " - choose " + gender.getValue() + ".");
