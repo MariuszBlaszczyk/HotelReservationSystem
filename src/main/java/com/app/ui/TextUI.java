@@ -14,10 +14,10 @@ import java.util.Scanner;
 
 public class TextUI {
 
-    GuestService guestService = new GuestService();
-    RoomService roomService = new RoomService();
+    private final GuestService guestService = new GuestService();
+    private final RoomService roomService = new RoomService();
 
-    public  void readNewGuestData(Scanner input) {
+    private void readNewGuestData(Scanner input) {
         System.out.println("We create a new guest.");
         try {
             System.out.print("Please enter a first name: ");
@@ -37,7 +37,7 @@ public class TextUI {
     }
 
 
-    public void readNewRoomData(Scanner input) {
+    private void readNewRoomData(Scanner input) {
         System.out.println("Creating a new room.");
         try {
             System.out.println("com.app.domain.room.Room number: ");
@@ -92,17 +92,14 @@ public class TextUI {
         }
     }
 
-    private  void performAction(Scanner input) {
+    private void performAction(Scanner input) {
         int option = getActionFromUser(input);
 
-        if (option == 1) {
-            readNewGuestData(input);
-        } else if (option == 2) {
-            readNewRoomData(input);
-        } else if (option == 3) {
-            System.out.println("Selected option 3.");
-        } else {
-            throw new WrongOptionException("Wrong option in main menu.");
+        switch (option) {
+            case 1 -> readNewGuestData(input);
+            case 2 -> readNewRoomData(input);
+            case 3 -> System.out.println("Selected option 3.");
+            default -> throw new WrongOptionException("Wrong option in main menu.");
         }
     }
 
