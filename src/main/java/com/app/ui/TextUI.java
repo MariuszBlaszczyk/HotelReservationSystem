@@ -10,6 +10,7 @@ import com.app.exceptions.OnlyNumberException;
 import com.app.exceptions.WrongOptionException;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class TextUI {
@@ -40,7 +41,7 @@ public class TextUI {
     private void readNewRoomData(Scanner input) {
         System.out.println("Creating a new room.");
         try {
-            System.out.println("com.app.domain.room.Room number: ");
+            System.out.println("Room number: ");
             int numberRoom = input.nextInt();
             int[] bedType = chooseBedType(input);
             Room newRoom = roomService.createNewRoom(numberRoom, bedType);
@@ -87,19 +88,28 @@ public class TextUI {
             System.out.println("Unknown error code.");
             System.out.println("Error message: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            System.out.println("I am leaving the application.");
         }
     }
 
     private void performAction(Scanner input) {
-        int option = getActionFromUser(input);
+        int option;
+        do {
+            option = getActionFromUser(input);
+            switch (option) {
+                case 0 -> System.out.println("I am leaving the application");
+                case 1 -> readNewGuestData(input);
+                case 2 -> readNewRoomData(input);
+                case 3 -> showGuestList();
+                default -> throw new WrongOptionException("Wrong option in main menu.");
+            }
+        } while (option != 0);
+    }
 
-        switch (option) {
-            case 1 -> readNewGuestData(input);
-            case 2 -> readNewRoomData(input);
-            case 3 -> System.out.println("Selected option 3.");
-            default -> throw new WrongOptionException("Wrong option in main menu.");
+    private void showGuestList() {
+        List<Guest> guests = guestService.getAllGuests();
+
+        for (Guest guest : guests) {
+            System.out.println(guest);
         }
     }
 
@@ -107,7 +117,7 @@ public class TextUI {
     private static int getActionFromUser(Scanner in) {
         System.out.println("1. Add new guest.");
         System.out.println("2. Add new room.");
-        System.out.println("3. Search for a visitor.");
+        System.out.println("3. Show guest list.");
         System.out.println("Select the option: ");
         int option;
         try {

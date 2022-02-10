@@ -1,5 +1,7 @@
 package com.app.domain.guest;
 
+import java.util.List;
+
 public class GuestService {
 
     private final GuestRepository guestRepository = new GuestRepository();
@@ -10,4 +12,7 @@ public class GuestService {
     }
 
 
+    public List<Guest> getAllGuests() {
+        return guestRepository.getAll();
+    }
 }
