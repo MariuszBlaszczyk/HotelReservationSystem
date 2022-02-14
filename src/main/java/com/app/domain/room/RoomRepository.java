@@ -8,12 +8,12 @@ public class RoomRepository {
     private final List<Room> rooms = new ArrayList<>();
 
     Room createNewRoom(int roomNumber, BedType[] bedTypes) {
-        Room newRoom =  new Room(roomNumber, bedTypes);
+        Room newRoom = new Room(roomNumber, bedTypes);
         rooms.add(newRoom);
         return newRoom;
     }
 
-     List<Room> getAll() {
+    List<Room> getAll() {
         return rooms;
     }
 }
