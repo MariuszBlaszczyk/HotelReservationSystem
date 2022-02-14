@@ -13,7 +13,7 @@ public class RoomRepository {
         return newRoom;
     }
 
-    public List<Room> getAll() {
+     List<Room> getAll() {
         return rooms;
     }
 }
