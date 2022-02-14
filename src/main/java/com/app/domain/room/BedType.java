@@ -19,13 +19,6 @@ public enum BedType {
     }
 
 
-    public static void availableBedTypes() {
-        System.out.println("Available bed types. Select a number.");
-        for (BedType bedtype : BedType.values()) {
-            System.out.println(bedtype.name() + " - choose: " + bedtype.getValue());
-        }
-    }
-
     static BedType chooseFromNumberValue(int userValue) {
         BedType[] values = values();
         for (BedType bedType : values) {

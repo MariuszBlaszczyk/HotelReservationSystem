@@ -16,12 +16,6 @@ public enum Gender {
         return value;
     }
 
-    public static void gendersToChooseFrom() {
-        System.out.println("Choose your gender");
-        for (Gender gender : Gender.values()) {
-            System.out.println(gender.name() + " - choose " + gender.getValue() + ".");
-        }
-    }
 
     static Gender chooseFromNumberValue(int userValue) {
         Gender[] values = values();

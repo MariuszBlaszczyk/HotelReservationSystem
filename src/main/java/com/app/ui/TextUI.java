@@ -28,12 +28,19 @@ public class TextUI {
             System.out.print("Please enter the age: ");
             int age = input.nextInt();
             System.out.println("Please, specify your gender: ");
-            Gender.gendersToChooseFrom();
+            showAvailableGenders();
             int gender = input.nextInt();
             Guest newGuest = guestService.createNewGuest(firstName, lastName, age, gender);
             System.out.println("New visitors added: " + newGuest);
         } catch (InputMismatchException e) {
             throw new OnlyNumberException("Use only numbers when choosing gender.");
+        }
+    }
+
+    private void showAvailableGenders() {
+        Gender[]  genders = Gender.values();
+        for(Gender gender : genders) {
+            System.out.println(gender + " - choose: " + gender.getValue());
         }
     }
 
@@ -51,17 +58,28 @@ public class TextUI {
         }
     }
 
+
+
     private int[] chooseBedType(Scanner input) {
         System.out.println("Enter the number of beds in the room");
         int bedNumber = input.nextInt();
         int[] bedTypes = new int[bedNumber];
         for (int i = 0; i < bedTypes.length; i++) {
-            BedType.availableBedTypes();
+            availableBedTypes();
             int bedTypeOption = input.nextInt();
             bedTypes[i] = bedTypeOption;
         }
         return bedTypes;
     }
+
+    private void availableBedTypes() {
+        System.out.println("Available bed types. Select a number.");
+        BedType[] availableBedTypes = BedType.values();
+        for (BedType bedType : availableBedTypes) {
+            System.out.println(bedType + "- choose: " + bedType.getValue());
+        }
+    }
+
 
     public void showSystemInfo(String hotelName, int currentSystemVersion, boolean isDeveloperVersion) {
         System.out.print("Welcome to the reservation system for the ");
@@ -100,9 +118,18 @@ public class TextUI {
                 case 1 -> readNewGuestData(input);
                 case 2 -> readNewRoomData(input);
                 case 3 -> showGuestList();
+                case 4 -> showRoomList();
                 default -> throw new WrongOptionException("Wrong option in main menu.");
             }
         } while (option != 0);
+    }
+
+    private void showRoomList() {
+        List<Room> rooms = roomService.getAllRooms();
+
+        for (Room room : rooms) {
+            System.out.println(room);
+        }
     }
 
     private void showGuestList() {
@@ -115,9 +142,11 @@ public class TextUI {
 
 
     private static int getActionFromUser(Scanner in) {
+        System.out.println();
         System.out.println("1. Add new guest.");
         System.out.println("2. Add new room.");
         System.out.println("3. Show guest list.");
+        System.out.println("4. Show room list.");
         System.out.println("Select the option: ");
         int option;
         try {
