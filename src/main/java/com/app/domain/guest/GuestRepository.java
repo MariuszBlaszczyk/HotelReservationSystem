@@ -13,7 +13,7 @@ public class GuestRepository {
         return newGuest;
     }
 
-     List<Guest> getAll() {
+    List<Guest> getAll() {
         return guests;
     }
 }
