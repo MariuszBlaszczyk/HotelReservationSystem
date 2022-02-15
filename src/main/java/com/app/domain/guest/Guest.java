@@ -4,6 +4,11 @@ import java.util.Objects;
 
 public record Guest(String firstName, String lastName, int age, Gender gender) {
 
+
+    String toCSV() {
+        return String.format("%s,%s,%d,%s%s", this.firstName, this.lastName, this.age, this.gender, System.getProperty("line.separator"));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

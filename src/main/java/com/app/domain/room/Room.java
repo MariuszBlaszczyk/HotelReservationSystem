@@ -5,6 +5,16 @@ import java.util.Objects;
 
 public record Room(int number, BedType[] bedType) {
 
+
+    String toCSV() {
+        String[] bedsAsString = new String[this.bedType.length];
+        for (int i = 0; i < this.bedType.length; i++) {
+            bedsAsString[i] = this.bedType[i].toString();
+        }
+        String typesOfBeds = String.join("#", bedsAsString);
+        return String.format("%d,%s%s", this.number, typesOfBeds, System.getProperty("line.separator"));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,7 +32,7 @@ public record Room(int number, BedType[] bedType) {
 
     @Override
     public String toString() {
-        return "- room number " + number + ".\n- number of beds: " + bedType.length +
-                ".\n- type of bed: " + Arrays.toString(bedType) + ".";
+        return "ROOM\n- number: " + number + ".\n- number of beds: " + bedType.length +
+                ".\n- type of bed: " + Arrays.toString(bedType) + ".\n";
     }
 }

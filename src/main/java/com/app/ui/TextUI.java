@@ -38,8 +38,8 @@ public class TextUI {
     }
 
     private void showAvailableGenders() {
-        Gender[]  genders = Gender.values();
-        for(Gender gender : genders) {
+        Gender[] genders = Gender.values();
+        for (Gender gender : genders) {
             System.out.println(gender + " - choose: " + gender.getValue());
         }
     }
@@ -57,7 +57,6 @@ public class TextUI {
             throw new OnlyNumberException("Use numbers when creating new room.");
         }
     }
-
 
 
     private int[] chooseBedType(Scanner input) {
@@ -93,6 +92,9 @@ public class TextUI {
     }
 
     public void showMainMenu() {
+        System.out.println("Loading data in progress...");
+        this.guestService.readAllGuestsFromFile();
+        this.roomService.readAllRoomsFromFile();
         Scanner input = new Scanner(System.in);
         try {
             performAction(input);
@@ -114,7 +116,11 @@ public class TextUI {
         do {
             option = getActionFromUser(input);
             switch (option) {
-                case 0 -> System.out.println("I am leaving the application");
+                case 0 -> {
+                    System.out.println("I am leaving the application. Saves the data to a file.");
+                    this.guestService.saveAllGuestsToFile();
+                    this.roomService.saveAllRoomsToFile();
+                }
                 case 1 -> readNewGuestData(input);
                 case 2 -> readNewRoomData(input);
                 case 3 -> showGuestList();
@@ -125,7 +131,7 @@ public class TextUI {
     }
 
     private void showRoomList() {
-        List<Room> rooms = roomService.getAllRooms();
+        List<Room> rooms = this.roomService.getAllRooms();
 
         for (Room room : rooms) {
             System.out.println(room);
@@ -133,7 +139,7 @@ public class TextUI {
     }
 
     private void showGuestList() {
-        List<Guest> guests = guestService.getAllGuests();
+        List<Guest> guests = this.guestService.getAllGuests();
 
         for (Guest guest : guests) {
             System.out.println(guest);
@@ -147,6 +153,7 @@ public class TextUI {
         System.out.println("2. Add new room.");
         System.out.println("3. Show guest list.");
         System.out.println("4. Show room list.");
+        System.out.println("0. Exit from the program.");
         System.out.println("Select the option: ");
         int option;
         try {

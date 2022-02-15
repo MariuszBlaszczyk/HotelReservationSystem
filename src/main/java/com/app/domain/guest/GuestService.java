@@ -15,4 +15,12 @@ public class GuestService {
     public List<Guest> getAllGuests() {
         return guestRepository.getAll();
     }
+
+    public void saveAllGuestsToFile() {
+        guestRepository.saveAllGuestsToFile();
+    }
+
+    public void readAllGuestsFromFile() {
+        guestRepository.readAllGuestsFromFile();
+    }
 }

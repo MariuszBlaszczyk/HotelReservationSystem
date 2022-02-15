@@ -11,11 +11,19 @@ public class RoomService {
         for (int i = 0; i < bedTypes.length; i++) {
             bedTypes[i] = BedType.chooseFromNumberValue(bedTypesOptions[i]);
         }
-        return roomRepository.createNewRoom(roomNumber, bedTypes);
+        return this.roomRepository.createNewRoom(roomNumber, bedTypes);
     }
 
     public List<Room> getAllRooms() {
-        return roomRepository.getAll();
+        return this.roomRepository.getAll();
+    }
+
+    public void saveAllRoomsToFile() {
+        this.roomRepository.saveAllRoomsToFile();
+    }
+
+    public void readAllRoomsFromFile() {
+        this.roomRepository.readAllRoomsFromFile();
     }
 
 
