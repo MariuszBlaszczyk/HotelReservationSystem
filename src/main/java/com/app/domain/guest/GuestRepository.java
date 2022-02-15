@@ -1,5 +1,6 @@
 package com.app.domain.guest;
 
+import com.app.exceptions.PersistenceToFileException;
 import com.app.utils.Properties;
 
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class GuestRepository {
             try {
                 Files.writeString(filepath, sb.toString(), StandardCharsets.UTF_8);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new PersistenceToFileException(filepath.toString(), "write", "guest data");
             }
         }
     }
@@ -51,8 +52,7 @@ public class GuestRepository {
                 createNewGuest(guestData[0], guestData[1], age, gender);
             }
         } catch (IOException e) {
-            System.out.println("Failed to read the data file.");
-            e.printStackTrace();
+            throw new PersistenceToFileException(filepath.toString(), "read", "guest data");
         }
     }
 

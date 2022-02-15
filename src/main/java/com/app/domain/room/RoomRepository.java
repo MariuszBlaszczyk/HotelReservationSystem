@@ -1,5 +1,6 @@
 package com.app.domain.room;
 
+import com.app.exceptions.PersistenceToFileException;
 import com.app.utils.Properties;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class RoomRepository {
         try {
             Files.writeString(filepath, sb.toString(), StandardCharsets.UTF_8);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new PersistenceToFileException(filepath.toString(), "write", "room data");
         }
     }
 
@@ -58,8 +59,7 @@ public class RoomRepository {
 
             }
         } catch (IOException e) {
-            System.out.println("Failed to read the data file.");
-            e.printStackTrace();
+            throw new PersistenceToFileException(filepath.toString(), "write", "room data");
         }
     }
 }

@@ -7,6 +7,7 @@ import com.app.domain.room.BedType;
 import com.app.domain.room.Room;
 import com.app.domain.room.RoomService;
 import com.app.exceptions.OnlyNumberException;
+import com.app.exceptions.PersistenceToFileException;
 import com.app.exceptions.WrongOptionException;
 import com.app.utils.Properties;
 
@@ -88,7 +89,6 @@ public class TextUI {
         System.out.println(Properties.SYSTEM_VERSION);
         System.out.print("Development version: ");
         System.out.println(Properties.IS_DEVELOPER_VERSION);
-
         System.out.println("\n=========================\n");
     }
 
@@ -99,7 +99,7 @@ public class TextUI {
         Scanner input = new Scanner(System.in);
         try {
             performAction(input);
-        } catch (WrongOptionException | OnlyNumberException e) {
+        } catch (WrongOptionException | OnlyNumberException | PersistenceToFileException e) {
             System.out.println("An unexpected error has occurred.");
             System.out.println("Error code: " + e.getCODE());
             System.out.println("Error message: " + e.getMessage());

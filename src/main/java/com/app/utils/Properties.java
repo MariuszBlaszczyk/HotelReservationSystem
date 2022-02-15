@@ -1,5 +1,7 @@
 package com.app.utils;
 
+import com.app.exceptions.PersistenceToFileException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +22,7 @@ public class Properties {
             try {
                 Files.createDirectory(DATA_DIRECTORY);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new PersistenceToFileException(DATA_DIRECTORY.toString(), "create", "directory");
             }
         }
     }
