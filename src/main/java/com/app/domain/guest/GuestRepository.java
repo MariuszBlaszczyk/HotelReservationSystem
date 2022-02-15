@@ -1,5 +1,7 @@
 package com.app.domain.guest;
 
+import com.app.utils.Properties;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,29 +12,25 @@ import java.util.List;
 
 public class GuestRepository {
 
-    private final List<Guest> guests = new ArrayList<>();
+    private final List<Guest> GUESTS = new ArrayList<>();
 
     Guest createNewGuest(String firstName, String lastName, int age, Gender gender) {
         Guest newGuest = new Guest(firstName, lastName, age, gender);
-        guests.add(newGuest);
+        GUESTS.add(newGuest);
         return newGuest;
     }
 
     List<Guest> getAll() {
-        return guests;
+        return GUESTS;
     }
 
     void saveAllGuestsToFile() {
         String filename = "guests.csv";
-        Path filepath = Paths.get(System.getProperty("user.home"), "reservation_system", filename);
+        Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
         StringBuilder sb = new StringBuilder();
-        for (Guest guest : this.guests) {
+        for (Guest guest : this.GUESTS) {
             sb.append(guest.toCSV());
             try {
-                Path reservation_system_dir = Paths.get(System.getProperty("user.home"), "reservation_system");
-                if (!Files.isDirectory(reservation_system_dir)) {
-                    Files.createDirectory(reservation_system_dir);
-                }
                 Files.writeString(filepath, sb.toString(), StandardCharsets.UTF_8);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -42,7 +40,7 @@ public class GuestRepository {
 
     void readAllGuestsFromFile() {
         String filename = "guests.csv";
-        Path filepath = Paths.get(System.getProperty("user.home"), "reservation_system", filename);
+        Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
         try {
             String data = Files.readString(filepath, StandardCharsets.UTF_8);
             String[] guestsAsString = data.split(System.getProperty("line.separator"));

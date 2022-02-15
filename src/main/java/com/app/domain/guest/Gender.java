@@ -6,21 +6,21 @@ public enum Gender {
     MALE(1),
     FEMALE(2);
 
-    final int value;
+    final int VALUE;
 
-    Gender(int value) {
-        this.value = value;
+    Gender(int VALUE) {
+        this.VALUE = VALUE;
     }
 
-    public int getValue() {
-        return value;
+    public int getVALUE() {
+        return VALUE;
     }
 
 
     static Gender chooseFromNumberValue(int userValue) {
         Gender[] values = values();
         for (Gender gender : values) {
-            if (gender.getValue() == userValue) {
+            if (gender.getVALUE() == userValue) {
                 return gender;
             }
         }

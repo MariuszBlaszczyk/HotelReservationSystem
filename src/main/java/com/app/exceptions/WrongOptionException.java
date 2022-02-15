@@ -2,14 +2,14 @@ package com.app.exceptions;
 
 public class WrongOptionException extends ReservationCustomerException {
 
-    private final int code = 101;
+    private final int CODE = 101;
 
 
     public WrongOptionException(String message) {
         super(message);
     }
 
-    public int getCode() {
-        return code;
+    public int getCODE() {
+        return CODE;
     }
 }

@@ -4,23 +4,23 @@ import java.util.List;
 
 public class GuestService {
 
-    private final GuestRepository guestRepository = new GuestRepository();
+    private final GuestRepository GUEST_REPOSITORY = new GuestRepository();
 
     public Guest createNewGuest(String firstName, String lastName, int age, int genderOption) {
         Gender gender = Gender.chooseFromNumberValue(genderOption);
-        return guestRepository.createNewGuest(firstName, lastName, age, gender);
+        return GUEST_REPOSITORY.createNewGuest(firstName, lastName, age, gender);
     }
 
 
     public List<Guest> getAllGuests() {
-        return guestRepository.getAll();
+        return GUEST_REPOSITORY.getAll();
     }
 
     public void saveAllGuestsToFile() {
-        guestRepository.saveAllGuestsToFile();
+        GUEST_REPOSITORY.saveAllGuestsToFile();
     }
 
     public void readAllGuestsFromFile() {
-        guestRepository.readAllGuestsFromFile();
+        GUEST_REPOSITORY.readAllGuestsFromFile();
     }
 }

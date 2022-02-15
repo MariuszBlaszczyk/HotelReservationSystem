@@ -1,17 +1,17 @@
 import com.app.ui.TextUI;
+import com.app.utils.Properties;
 
 public class App {
 
-    private static final TextUI textUI = new TextUI();
+    private static final TextUI TEXT_UI = new TextUI();
 
     public static void main(String[] args) {
 
-        String hotelName = "Overlook Hotel";
-        int currentSystemVersion = 1;
-        boolean isDeveloperVersion = true;
 
-        textUI.showSystemInfo(hotelName, currentSystemVersion, isDeveloperVersion);
-        textUI.showMainMenu();
+
+        Properties.createDataDirectory();
+        TEXT_UI.showSystemInfo();
+        TEXT_UI.showMainMenu();
 
     }
 }

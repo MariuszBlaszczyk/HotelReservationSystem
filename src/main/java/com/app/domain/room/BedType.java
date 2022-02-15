@@ -7,22 +7,22 @@ public enum BedType {
     DOUBLE(2),
     KING_SIZE(3);
 
-    final int value;
+    final int VALUE;
 
 
     BedType(int value) {
-        this.value = value;
+        this.VALUE = value;
     }
 
-    public int getValue() {
-        return value;
+    public int getVALUE() {
+        return VALUE;
     }
 
 
     static BedType chooseFromNumberValue(int userValue) {
         BedType[] values = values();
         for (BedType bedType : values) {
-            if (bedType.getValue() == userValue)
+            if (bedType.getVALUE() == userValue)
                 return bedType;
         }
         throw new WrongOptionException("Wrong option when selecting bed type");

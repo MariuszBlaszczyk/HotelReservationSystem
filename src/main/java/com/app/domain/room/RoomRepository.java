@@ -1,5 +1,7 @@
 package com.app.domain.room;
 
+import com.app.utils.Properties;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,30 +12,26 @@ import java.util.List;
 
 public class RoomRepository {
 
-    private final List<Room> rooms = new ArrayList<>();
+    private final List<Room> ROOMS = new ArrayList<>();
 
     Room createNewRoom(int roomNumber, BedType[] bedTypes) {
         Room newRoom = new Room(roomNumber, bedTypes);
-        this.rooms.add(newRoom);
+        this.ROOMS.add(newRoom);
         return newRoom;
     }
 
     List<Room> getAll() {
-        return rooms;
+        return ROOMS;
     }
 
     void saveAllRoomsToFile() {
         String filename = "rooms.csv";
-        Path filepath = Paths.get(System.getProperty("user.home"), "reservation_system", filename);
+        Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
         StringBuilder sb = new StringBuilder();
-        for (Room room : this.rooms) {
+        for (Room room : this.ROOMS) {
             sb.append(room.toCSV());
         }
         try {
-            Path reservation_system_dir = Paths.get(System.getProperty("user.home"), "reservation_system");
-            if (!Files.isDirectory(reservation_system_dir)) {
-                Files.createDirectory(reservation_system_dir);
-            }
             Files.writeString(filepath, sb.toString(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,7 +41,7 @@ public class RoomRepository {
 
     void readAllRoomsFromFile() {
         String filename = "rooms.csv";
-        Path filepath = Paths.get(System.getProperty("user.home"), "reservation_system", filename);
+        Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
         try {
             String data = Files.readString(filepath, StandardCharsets.UTF_8);
             String[] roomsAsString = data.split(System.getProperty("line.separator"));
