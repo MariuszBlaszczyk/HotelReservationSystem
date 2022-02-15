@@ -165,5 +165,24 @@ public class TextUI {
         return option;
     }
 
+    public static Gender chooseGenderFromNumberValue(int userValue) {
+        Gender[] values = Gender.values();
+        for (Gender gender : values) {
+            if (gender.getVALUE() == userValue) {
+                return gender;
+            }
+        }
+        throw new WrongOptionException("Wrong option when selecting gender");
+    }
+
+    public static BedType chooseBedTypeFromNumberValue(int userValue) {
+        BedType[] values = BedType.values();
+        for (BedType bedType : values) {
+            if (bedType.getVALUE() == userValue)
+                return bedType;
+        }
+        throw new WrongOptionException("Wrong option when selecting bed type");
+    }
+
 
 }

@@ -1,5 +1,7 @@
 package com.app.domain.room;
 
+import com.app.ui.TextUI;
+
 import java.util.List;
 
 public class RoomService {
@@ -9,7 +11,7 @@ public class RoomService {
     public Room createNewRoom(int roomNumber, int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
         for (int i = 0; i < bedTypes.length; i++) {
-            bedTypes[i] = BedType.chooseFromNumberValue(bedTypesOptions[i]);
+            bedTypes[i] = TextUI.chooseBedTypeFromNumberValue(bedTypesOptions[i]);
         }
         return this.ROOM_REPOSITORY.createNewRoom(roomNumber, bedTypes);
     }

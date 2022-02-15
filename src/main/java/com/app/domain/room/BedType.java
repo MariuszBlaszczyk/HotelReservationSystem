@@ -1,7 +1,5 @@
 package com.app.domain.room;
 
-import com.app.exceptions.WrongOptionException;
-
 public enum BedType {
     SINGLE(1),
     DOUBLE(2),
@@ -19,14 +17,7 @@ public enum BedType {
     }
 
 
-    static BedType chooseFromNumberValue(int userValue) {
-        BedType[] values = values();
-        for (BedType bedType : values) {
-            if (bedType.getVALUE() == userValue)
-                return bedType;
-        }
-        throw new WrongOptionException("Wrong option when selecting bed type");
-    }
+
 
 
 }

@@ -1,5 +1,7 @@
 package com.app.domain.guest;
 
+import com.app.ui.TextUI;
+
 import java.util.List;
 
 public class GuestService {
@@ -7,7 +9,7 @@ public class GuestService {
     private final GuestRepository GUEST_REPOSITORY = new GuestRepository();
 
     public Guest createNewGuest(String firstName, String lastName, int age, int genderOption) {
-        Gender gender = Gender.chooseFromNumberValue(genderOption);
+        Gender gender = TextUI.chooseGenderFromNumberValue(genderOption);
         return GUEST_REPOSITORY.createNewGuest(firstName, lastName, age, gender);
     }
 
