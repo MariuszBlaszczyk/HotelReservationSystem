@@ -123,12 +123,43 @@ public class TextUI {
                     this.ROOM_SERVICE.saveAllRoomsToFile();
                 }
                 case 1 -> readNewGuestData(input);
-                case 2 -> readNewRoomData(input);
-                case 3 -> showGuestList();
-                case 4 -> showRoomList();
+                case 2 -> editGuestData(input);
+                case 3 -> removeGuest(input);
+                case 4 -> showGuestList();
+                case 5 -> readNewRoomData(input);
+                case 6 -> showRoomList();
                 default -> throw new WrongOptionException("Wrong option in main menu.");
             }
         } while (option != 0);
+    }
+
+    private void editGuestData(Scanner input) {
+        System.out.println("Enter the guest ID number to edit.");
+        try {
+            int guestId = input.nextInt();
+            System.out.print("Please enter a first name: ");
+            String firstName = input.next();
+            System.out.print("Please enter a last name: ");
+            String lastName = input.next();
+            System.out.print("Please enter the age: ");
+            int age = input.nextInt();
+            System.out.println("Please, specify your gender: ");
+            showAvailableGenders();
+            int gender = input.nextInt();
+            GUEST_SERVICE.editGuestFromList(guestId,firstName, lastName, age, gender);
+        } catch (InputMismatchException e) {
+            throw new OnlyNumberException("Use the numbers when editing guest.");
+        }
+    }
+
+    private void removeGuest(Scanner input) {
+        System.out.println("Enter the guest ID number to delete.");
+        try {
+            int guestId = input.nextInt();
+            GUEST_SERVICE.removeGuestFromList(guestId);
+        } catch (InputMismatchException e) {
+            throw new OnlyNumberException("Use the numbers when inserting ID.");
+        }
     }
 
     private void showRoomList() {
@@ -150,10 +181,14 @@ public class TextUI {
 
     private static int getActionFromUser(Scanner in) {
         System.out.println();
+        System.out.println("GUEST");
         System.out.println("1. Add new guest.");
-        System.out.println("2. Add new room.");
-        System.out.println("3. Show guest list.");
-        System.out.println("4. Show room list.");
+        System.out.println("2. Edit guest.");
+        System.out.println("3. Remove guest.");
+        System.out.println("4. Show guest list.");
+        System.out.println("ROOM");
+        System.out.println("5. Add new room.");
+        System.out.println("6. Show room list.");
         System.out.println("0. Exit from the program.");
         System.out.println("Select the option: ");
         int option;

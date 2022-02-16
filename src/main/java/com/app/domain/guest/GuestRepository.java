@@ -16,16 +16,22 @@ public class GuestRepository {
     private final List<Guest> GUESTS = new ArrayList<>();
 
     Guest createNewGuest(String firstName, String lastName, int age, Gender gender) {
-        Guest newGuest = new Guest(firstName, lastName, age, gender);
+        Guest newGuest = new Guest(findNewIdForTheGuest(), firstName, lastName, age, gender);
         GUESTS.add(newGuest);
         return newGuest;
     }
+
+    void addExistingGuest(int id, String firstName, String lastName, int age, Gender gender) {
+        Guest newGuest = new Guest(id, firstName, lastName, age, gender);
+        GUESTS.add(newGuest);
+    }
+
 
     List<Guest> getAll() {
         return GUESTS;
     }
 
-    void saveAllGuestsToFile() {
+    void writeAllGuestsToFile() {
         String filename = "guests.csv";
         Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
         StringBuilder sb = new StringBuilder();
@@ -42,18 +48,51 @@ public class GuestRepository {
     void readAllGuestsFromFile() {
         String filename = "guests.csv";
         Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
+
+        if (!Files.exists(filepath)) {
+            return;
+        }
+
         try {
             String data = Files.readString(filepath, StandardCharsets.UTF_8);
             String[] guestsAsString = data.split(System.getProperty("line.separator"));
             for (String guestAsString : guestsAsString) {
                 String[] guestData = guestAsString.split(",");
-                int age = Integer.parseInt(guestData[2]);
-                Gender gender = Gender.valueOf(guestData[3]);
-                createNewGuest(guestData[0], guestData[1], age, gender);
+                int id = Integer.parseInt(guestData[0]);
+                int age = Integer.parseInt(guestData[3]);
+                Gender gender = Gender.valueOf(guestData[4]);
+                addExistingGuest(id, guestData[1], guestData[2], age, gender);
             }
         } catch (IOException e) {
             throw new PersistenceToFileException(filepath.toString(), "read", "guest data");
         }
     }
 
+    private int findNewIdForTheGuest() {
+        int max = 0;
+        for (Guest guest : this.GUESTS) {
+            if (guest.id() > max) {
+                max = guest.id();
+            }
+        }
+        return max + 1;
+    }
+
+    public void remove(int guestId) {
+        int guestToBeRemoved = -1;
+        for (int i = 0; i < GUESTS.size(); i++) {
+            if (GUESTS.get(i).id() == guestId) {
+                guestToBeRemoved = i;
+                break;
+            }
+        }
+        if (guestToBeRemoved > -1) {
+            GUESTS.remove(guestToBeRemoved);
+        }
+    }
+
+    public void edit(int guestId, String firstName, String lastName, int age, Gender gender) {
+        remove(guestId);
+        addExistingGuest(guestId, firstName, lastName, age, gender);
+    }
 }

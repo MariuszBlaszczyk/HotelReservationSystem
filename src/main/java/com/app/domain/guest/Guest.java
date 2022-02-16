@@ -1,30 +1,22 @@
 package com.app.domain.guest;
 
-import java.util.Objects;
 
-public record Guest(String firstName, String lastName, int age, Gender gender) {
+public record Guest(int id, String firstName, String lastName, int age, Gender gender) {
 
 
     String toCSV() {
-        return String.format("%s,%s,%d,%s%s", this.firstName, this.lastName, this.age, this.gender, System.getProperty("line.separator"));
+        return String.format("%d,%s,%s,%d,%s%s", this.id, this.firstName, this.lastName, this.age, this.gender,
+                System.getProperty("line.separator"));
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Guest guest = (Guest) o;
-        return age == guest.age && Objects.equals(firstName, guest.firstName) && Objects.equals(lastName, guest.lastName) && gender == guest.gender;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, age, gender);
-    }
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + ", age: " + age + ", gender: " + gender + ".";
+        return id + " " +
+                firstName + " " +
+                lastName +
+                ", age: " + age +
+                ", gender: " + gender + ".";
     }
 
 }

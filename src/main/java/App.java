@@ -8,7 +8,6 @@ public class App {
     public static void main(String[] args) {
 
 
-
         Properties.createDataDirectory();
         TEXT_UI.showSystemInfo();
         TEXT_UI.showMainMenu();

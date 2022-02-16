@@ -19,10 +19,19 @@ public class GuestService {
     }
 
     public void saveAllGuestsToFile() {
-        GUEST_REPOSITORY.saveAllGuestsToFile();
+        GUEST_REPOSITORY.writeAllGuestsToFile();
     }
 
     public void readAllGuestsFromFile() {
         GUEST_REPOSITORY.readAllGuestsFromFile();
+    }
+
+    public void removeGuestFromList(int guestId) {
+        GUEST_REPOSITORY.remove(guestId);
+    }
+
+    public void editGuestFromList(int guestId, String firstName, String lastName, int age, int genderOption) {
+        Gender gender = TextUI.chooseGenderFromNumberValue(genderOption);
+        GUEST_REPOSITORY.edit(guestId,firstName,lastName,age, gender);
     }
 }

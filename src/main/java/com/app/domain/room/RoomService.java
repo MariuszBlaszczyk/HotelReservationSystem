@@ -21,7 +21,7 @@ public class RoomService {
     }
 
     public void saveAllRoomsToFile() {
-        this.ROOM_REPOSITORY.saveAllRoomsToFile();
+        this.ROOM_REPOSITORY.writeAllRoomsToFile();
     }
 
     public void readAllRoomsFromFile() {

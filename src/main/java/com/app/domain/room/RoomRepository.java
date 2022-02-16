@@ -16,16 +16,21 @@ public class RoomRepository {
     private final List<Room> ROOMS = new ArrayList<>();
 
     Room createNewRoom(int roomNumber, BedType[] bedTypes) {
-        Room newRoom = new Room(roomNumber, bedTypes);
+        Room newRoom = new Room(findNewIdForTheRoom(), roomNumber, bedTypes);
         this.ROOMS.add(newRoom);
         return newRoom;
+    }
+
+    void addNewRoomFromFile(int id, int roomNumber, BedType[] bedTypes) {
+        Room newRoom = new Room(id, roomNumber, bedTypes);
+        this.ROOMS.add(newRoom);
     }
 
     List<Room> getAll() {
         return ROOMS;
     }
 
-    void saveAllRoomsToFile() {
+    void writeAllRoomsToFile() {
         String filename = "rooms.csv";
         Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
         StringBuilder sb = new StringBuilder();
@@ -43,23 +48,39 @@ public class RoomRepository {
     void readAllRoomsFromFile() {
         String filename = "rooms.csv";
         Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
+
+        if(!Files.exists(filepath)) {
+            return;
+        }
+
         try {
             String data = Files.readString(filepath, StandardCharsets.UTF_8);
             String[] roomsAsString = data.split(System.getProperty("line.separator"));
             for (String roomAsString : roomsAsString) {
                 String[] roomData = roomAsString.split(",");
-                int roomNumber = Integer.parseInt(roomData[0]);
-                String bedTypesData = roomData[1];
+                int id = Integer.parseInt(roomData[0]);
+                int roomNumber = Integer.parseInt(roomData[1]);
+                String bedTypesData = roomData[2];
                 String[] bedTypesAsString = bedTypesData.split("#");
                 BedType[] bedTypes = new BedType[bedTypesAsString.length];
                 for (int i = 0; i < bedTypes.length; i++) {
                     bedTypes[i] = BedType.valueOf(bedTypesAsString[i]);
                 }
-                createNewRoom(roomNumber, bedTypes);
+                addNewRoomFromFile(id, roomNumber, bedTypes);
 
             }
         } catch (IOException e) {
             throw new PersistenceToFileException(filepath.toString(), "write", "room data");
         }
+    }
+
+    private int findNewIdForTheRoom() {
+        int max = 0;
+        for (Room room : ROOMS) {
+            if (room.id() > max) {
+                max = room.id();
+            }
+        }
+        return max + 1;
     }
 }
