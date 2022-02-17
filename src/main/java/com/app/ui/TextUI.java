@@ -100,7 +100,7 @@ public class TextUI {
         System.out.println("Loading data in progress...");
         this.guestService.readAllGuestsFromFile();
         this.roomService.readAllRoomsFromFile();
-//        this.reservationService.readAllReservationsFromFile();
+        this.reservationService.readAllReservationsFromFile();
         Scanner input = new Scanner(System.in);
         try {
             performAction(input);
@@ -224,7 +224,7 @@ public class TextUI {
                     System.out.println("I am leaving the application. Saves the data to a file.");
                     this.guestService.writeAllGuestsToFile();
                     this.roomService.writeAllRoomsToFile();
-//                    this.reservationService.writeAllReservationsToFile();
+                    this.reservationService.writeAllReservationsToFile();
                 }
                 case 1 -> readNewGuestData(input);
                 case 2 -> editGuestData(input);

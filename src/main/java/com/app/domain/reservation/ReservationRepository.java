@@ -51,7 +51,13 @@ public class ReservationRepository {
             String[] reservationsAsString = data.split(System.getProperty("line.separator"));
             for (String reservationAsString : reservationsAsString) {
                 String[] reservationData = reservationAsString.split(",");
-                int id = Integer.parseInt(reservationData[0]);
+                int id = 0;
+                try {
+                    id = Integer.parseInt(reservationData[0]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Reservation id cannot be read from file, defaulting to 0");
+                }
                 int roomId = Integer.parseInt(reservationData[1]);
                 int guestId = Integer.parseInt(reservationData[2]);
                 String fromAsString = reservationData[3];
