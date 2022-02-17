@@ -6,27 +6,45 @@ import java.util.List;
 
 public class RoomService {
 
-    private final RoomRepository ROOM_REPOSITORY = new RoomRepository();
+    private final static RoomRepository ROOM_REPOSITORY = new RoomRepository();
 
     public Room createNewRoom(int roomNumber, int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
         for (int i = 0; i < bedTypes.length; i++) {
             bedTypes[i] = TextUI.chooseBedTypeFromNumberValue(bedTypesOptions[i]);
         }
-        return this.ROOM_REPOSITORY.createNewRoom(roomNumber, bedTypes);
+        return ROOM_REPOSITORY.createNewRoom(roomNumber, bedTypes);
     }
+
+
 
     public List<Room> getAllRooms() {
-        return this.ROOM_REPOSITORY.getAll();
+        return ROOM_REPOSITORY.getAll();
     }
 
-    public void saveAllRoomsToFile() {
-        this.ROOM_REPOSITORY.writeAllRoomsToFile();
+    public void writeAllRoomsToFile() {
+        ROOM_REPOSITORY.writeAllRoomsToFile();
     }
 
     public void readAllRoomsFromFile() {
-        this.ROOM_REPOSITORY.readAllRoomsFromFile();
+        ROOM_REPOSITORY.readAllRoomsFromFile();
     }
 
 
+    public void editGuestFromList(int roomId, int numberRoom, int[] bedTypesOptions) {
+        BedType[] bedTypes = new BedType[bedTypesOptions.length];
+        for (int i = 0; i < bedTypes.length; i++) {
+            bedTypes[i] = TextUI.chooseBedTypeFromNumberValue(bedTypesOptions[i]);
+        }
+        ROOM_REPOSITORY.edit(roomId,numberRoom,bedTypes);
+    }
+
+    public void removeRoomFromList(int roomId) {
+        ROOM_REPOSITORY.remove(roomId);
+    }
+
+
+    public Room getRoomById(int roomId) {
+        return  ROOM_REPOSITORY.getById(roomId);
+    }
 }

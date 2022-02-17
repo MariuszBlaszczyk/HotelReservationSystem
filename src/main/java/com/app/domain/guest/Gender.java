@@ -4,14 +4,14 @@ public enum Gender {
     MALE(1),
     FEMALE(2);
 
-    final int VALUE;
+    final int value;
 
-    Gender(int VALUE) {
-        this.VALUE = VALUE;
+    Gender(int value) {
+        this.value = value;
     }
 
-    public int getVALUE() {
-        return VALUE;
+    public int getValue() {
+        return value;
     }
 
 

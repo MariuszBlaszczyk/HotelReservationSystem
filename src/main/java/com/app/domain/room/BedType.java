@@ -5,15 +5,15 @@ public enum BedType {
     DOUBLE(2),
     KING_SIZE(3);
 
-    final int VALUE;
+    final int value;
 
 
     BedType(int value) {
-        this.VALUE = value;
+        this.value = value;
     }
 
-    public int getVALUE() {
-        return VALUE;
+    public int getValue() {
+        return value;
     }
 
 

@@ -1,5 +1,7 @@
+package com.app;
+
 import com.app.ui.TextUI;
-import com.app.utils.Properties;
+import com.app.utils.Utils;
 
 public class App {
 
@@ -8,7 +10,7 @@ public class App {
     public static void main(String[] args) {
 
 
-        Properties.createDataDirectory();
+        Utils.createDataDirectory();
         TEXT_UI.showSystemInfo();
         TEXT_UI.showMainMenu();
 

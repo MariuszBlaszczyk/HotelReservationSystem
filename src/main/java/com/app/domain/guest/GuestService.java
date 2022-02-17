@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GuestService {
 
-    private final GuestRepository GUEST_REPOSITORY = new GuestRepository();
+    private final static GuestRepository GUEST_REPOSITORY = new GuestRepository();
 
     public Guest createNewGuest(String firstName, String lastName, int age, int genderOption) {
         Gender gender = TextUI.chooseGenderFromNumberValue(genderOption);
@@ -18,7 +18,7 @@ public class GuestService {
         return GUEST_REPOSITORY.getAll();
     }
 
-    public void saveAllGuestsToFile() {
+    public void writeAllGuestsToFile() {
         GUEST_REPOSITORY.writeAllGuestsToFile();
     }
 
@@ -33,5 +33,9 @@ public class GuestService {
     public void editGuestFromList(int guestId, String firstName, String lastName, int age, int genderOption) {
         Gender gender = TextUI.chooseGenderFromNumberValue(genderOption);
         GUEST_REPOSITORY.edit(guestId,firstName,lastName,age, gender);
+    }
+
+    public Guest getGuestById(int guestId) {
+        return GUEST_REPOSITORY.getById(guestId);
     }
 }

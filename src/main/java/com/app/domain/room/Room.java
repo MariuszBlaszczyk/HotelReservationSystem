@@ -18,7 +18,7 @@ public record Room(int id, int number, BedType[] bedType) {
 
     @Override
     public String toString() {
-        return "ROOM " + id + "\n" +
+        return "ROOM ID " + id + "\n" +
                 "- room number: " + number + "\n" +
                 "- number of beds: " + bedType.length + "\n" +
                 "- type of bed: " + Arrays.toString(bedType) + ".\n";

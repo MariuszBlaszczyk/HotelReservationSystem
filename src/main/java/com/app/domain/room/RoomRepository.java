@@ -1,7 +1,7 @@
 package com.app.domain.room;
 
 import com.app.exceptions.PersistenceToFileException;
-import com.app.utils.Properties;
+import com.app.utils.Utils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -13,43 +13,51 @@ import java.util.List;
 
 public class RoomRepository {
 
-    private final List<Room> ROOMS = new ArrayList<>();
+    private final List<Room> rooms = new ArrayList<>();
 
     Room createNewRoom(int roomNumber, BedType[] bedTypes) {
         Room newRoom = new Room(findNewIdForTheRoom(), roomNumber, bedTypes);
-        this.ROOMS.add(newRoom);
+        this.rooms.add(newRoom);
         return newRoom;
     }
 
-    void addNewRoomFromFile(int id, int roomNumber, BedType[] bedTypes) {
+    void addExistingGuest(int id, int roomNumber, BedType[] bedTypes) {
         Room newRoom = new Room(id, roomNumber, bedTypes);
-        this.ROOMS.add(newRoom);
+        this.rooms.add(newRoom);
     }
 
     List<Room> getAll() {
-        return ROOMS;
+        return rooms;
     }
 
+
     void writeAllRoomsToFile() {
-        String filename = "rooms.csv";
-        Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
+        String name = "rooms.csv";
+        Path file = Paths.get(
+                System.getProperty("user.home"),
+                "reservation_system",
+                name);
         StringBuilder sb = new StringBuilder();
-        for (Room room : this.ROOMS) {
+        for (Room room : this.rooms) {
             sb.append(room.toCSV());
         }
         try {
-            Files.writeString(filepath, sb.toString(), StandardCharsets.UTF_8);
+            Path reservation_system_dir = Paths.get(System.getProperty("user.home"), "reservation_system");
+            if (!Files.isDirectory(reservation_system_dir)) {
+                Files.createDirectory(reservation_system_dir);
+            }
+            Files.writeString(file, sb.toString(), StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new PersistenceToFileException(filepath.toString(), "write", "room data");
+            e.printStackTrace();
         }
     }
 
 
     void readAllRoomsFromFile() {
         String filename = "rooms.csv";
-        Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
+        Path filepath = Paths.get(Utils.DATA_DIRECTORY.toString(), filename);
 
-        if(!Files.exists(filepath)) {
+        if (!Files.exists(filepath)) {
             return;
         }
 
@@ -66,7 +74,7 @@ public class RoomRepository {
                 for (int i = 0; i < bedTypes.length; i++) {
                     bedTypes[i] = BedType.valueOf(bedTypesAsString[i]);
                 }
-                addNewRoomFromFile(id, roomNumber, bedTypes);
+                addExistingGuest(id, roomNumber, bedTypes);
 
             }
         } catch (IOException e) {
@@ -76,11 +84,38 @@ public class RoomRepository {
 
     private int findNewIdForTheRoom() {
         int max = 0;
-        for (Room room : ROOMS) {
+        for (Room room : rooms) {
             if (room.id() > max) {
                 max = room.id();
             }
         }
         return max + 1;
+    }
+
+    public void remove(int guestId) {
+        int roomToBeRemoved = -1;
+        for (int i = 0; i < rooms.size(); i++) {
+            if (rooms.get(i).id() == guestId) {
+                roomToBeRemoved = i;
+                break;
+            }
+        }
+        if (roomToBeRemoved > -1) {
+            rooms.remove(roomToBeRemoved);
+        }
+    }
+
+    public void edit(int roomId, int numberRoom, BedType[] bedTypes) {
+        remove(roomId);
+        addExistingGuest(roomId, numberRoom, bedTypes);
+    }
+
+    public Room getById(int roomId) {
+        for (Room room : rooms) {
+            if (room.id() == roomId) {
+                return room;
+            }
+        }
+        return null;
     }
 }

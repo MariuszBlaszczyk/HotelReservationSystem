@@ -1,7 +1,7 @@
 package com.app.domain.guest;
 
 import com.app.exceptions.PersistenceToFileException;
-import com.app.utils.Properties;
+import com.app.utils.Utils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -13,29 +13,29 @@ import java.util.List;
 
 public class GuestRepository {
 
-    private final List<Guest> GUESTS = new ArrayList<>();
+    private final List<Guest> guests = new ArrayList<>();
 
     Guest createNewGuest(String firstName, String lastName, int age, Gender gender) {
         Guest newGuest = new Guest(findNewIdForTheGuest(), firstName, lastName, age, gender);
-        GUESTS.add(newGuest);
+        guests.add(newGuest);
         return newGuest;
     }
 
     void addExistingGuest(int id, String firstName, String lastName, int age, Gender gender) {
         Guest newGuest = new Guest(id, firstName, lastName, age, gender);
-        GUESTS.add(newGuest);
+        guests.add(newGuest);
     }
 
 
     List<Guest> getAll() {
-        return GUESTS;
+        return guests;
     }
 
     void writeAllGuestsToFile() {
         String filename = "guests.csv";
-        Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
+        Path filepath = Paths.get(Utils.DATA_DIRECTORY.toString(), filename);
         StringBuilder sb = new StringBuilder();
-        for (Guest guest : this.GUESTS) {
+        for (Guest guest : this.guests) {
             sb.append(guest.toCSV());
             try {
                 Files.writeString(filepath, sb.toString(), StandardCharsets.UTF_8);
@@ -47,7 +47,7 @@ public class GuestRepository {
 
     void readAllGuestsFromFile() {
         String filename = "guests.csv";
-        Path filepath = Paths.get(Properties.DATA_DIRECTORY.toString(), filename);
+        Path filepath = Paths.get(Utils.DATA_DIRECTORY.toString(), filename);
 
         if (!Files.exists(filepath)) {
             return;
@@ -70,7 +70,7 @@ public class GuestRepository {
 
     private int findNewIdForTheGuest() {
         int max = 0;
-        for (Guest guest : this.GUESTS) {
+        for (Guest guest : this.guests) {
             if (guest.id() > max) {
                 max = guest.id();
             }
@@ -80,19 +80,28 @@ public class GuestRepository {
 
     public void remove(int guestId) {
         int guestToBeRemoved = -1;
-        for (int i = 0; i < GUESTS.size(); i++) {
-            if (GUESTS.get(i).id() == guestId) {
+        for (int i = 0; i < guests.size(); i++) {
+            if (guests.get(i).id() == guestId) {
                 guestToBeRemoved = i;
                 break;
             }
         }
         if (guestToBeRemoved > -1) {
-            GUESTS.remove(guestToBeRemoved);
+            guests.remove(guestToBeRemoved);
         }
     }
 
     public void edit(int guestId, String firstName, String lastName, int age, Gender gender) {
         remove(guestId);
         addExistingGuest(guestId, firstName, lastName, age, gender);
+    }
+
+    public Guest getById(int guestId) {
+        for (Guest guest : guests) {
+            if (guest.id() == guestId) {
+                return guest;
+            }
+        }
+        return null;
     }
 }
