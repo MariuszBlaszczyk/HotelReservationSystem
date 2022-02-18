@@ -40,6 +40,8 @@ public class ReservationRepository {
         return max + 1;
     }
 
+
+
     public void readAll() {
         String name = "reservations.csv";
         Path file = Paths.get(Utils.DATA_DIRECTORY.toString(), name);
@@ -50,24 +52,31 @@ public class ReservationRepository {
             String data = Files.readString(file, StandardCharsets.UTF_8);
             String[] reservationsAsString = data.split(System.getProperty("line.separator"));
             for (String reservationAsString : reservationsAsString) {
-                String[] reservationData = reservationAsString.split(",");
-                int id = 0;
                 try {
-                    id = Integer.parseInt(reservationData[0]);
+                    String[] reservationData = reservationAsString.split(",");
+                    int id = Integer.parseInt(reservationData[0]);
+                    int roomId = Integer.parseInt(reservationData[1]);
+                    int guestId = 0;
+                    try {
+                        guestId = Integer.parseInt(reservationData[2]);
+                    } catch (Exception e) {
+                        System.out.println("No guest, defaulting to 0");
+                    }
+                    String fromAsString = reservationData[3];
+                    String toAsString = reservationData[4];
+                    addExistingReservation(id, this.roomService.getRoomById(roomId),
+                            this.guestService.getGuestById(guestId), LocalDateTime.parse(fromAsString),
+                            LocalDateTime.parse(toAsString));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println("Reservation id cannot be read from file, defaulting to 0");
+                    System.out.println("Wrong data for reservation, reading next line");
                 }
-                int roomId = Integer.parseInt(reservationData[1]);
-                int guestId = Integer.parseInt(reservationData[2]);
-                String fromAsString = reservationData[3];
-                String toAsString = reservationData[4];
-                addExistingReservation(id, this.roomService.getRoomById(roomId), this.guestService.getGuestById(guestId), LocalDateTime.parse(fromAsString), LocalDateTime.parse(toAsString));
             }
         } catch (IOException e) {
             throw new PersistenceToFileException(file.toString(), "read", "guests data");
         }
     }
+
 
     public void writeAll() {
         String name = "reservations.csv";
