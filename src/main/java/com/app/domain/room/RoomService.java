@@ -17,7 +17,6 @@ public class RoomService {
     }
 
 
-
     public List<Room> getAllRooms() {
         return ROOM_REPOSITORY.getAll();
     }
@@ -36,7 +35,7 @@ public class RoomService {
         for (int i = 0; i < bedTypes.length; i++) {
             bedTypes[i] = TextUI.chooseBedTypeFromNumberValue(bedTypesOptions[i]);
         }
-        ROOM_REPOSITORY.edit(roomId,numberRoom,bedTypes);
+        ROOM_REPOSITORY.edit(roomId, numberRoom, bedTypes);
     }
 
     public void removeRoomFromList(int roomId) {
@@ -45,6 +44,6 @@ public class RoomService {
 
 
     public Room getRoomById(int roomId) {
-        return  ROOM_REPOSITORY.getById(roomId);
+        return ROOM_REPOSITORY.getById(roomId);
     }
 }

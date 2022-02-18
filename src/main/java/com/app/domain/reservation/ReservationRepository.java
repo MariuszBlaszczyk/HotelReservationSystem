@@ -22,7 +22,11 @@ public class ReservationRepository {
     GuestService guestService = new GuestService();
     RoomService roomService = new RoomService();
 
-    List<Reservation> reservations = new ArrayList<>();
+    static List<Reservation> reservations = new ArrayList<>();
+
+    static List<Reservation> getAll() {
+        return reservations;
+    }
 
     public Reservation createNewReservation(Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
         Reservation reservation = new Reservation(findNewIdForReservation(), room, guest, from, to);
@@ -30,9 +34,10 @@ public class ReservationRepository {
         return reservation;
     }
 
+
     private int findNewIdForReservation() {
         int max = 0;
-        for (Reservation reservation : this.reservations) {
+        for (Reservation reservation : reservations) {
             if (reservation.id() > max) {
                 max = reservation.id();
             }
@@ -74,7 +79,7 @@ public class ReservationRepository {
         String name = "reservations.csv";
         Path file = Paths.get(Utils.DATA_DIRECTORY.toString(), name);
         StringBuilder sb = new StringBuilder();
-        for (Reservation reservation : this.reservations) {
+        for (Reservation reservation : reservations) {
             sb.append(reservation.toCSV());
         }
         try {
@@ -88,5 +93,27 @@ public class ReservationRepository {
     private void addExistingReservation(int id, Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
         Reservation reservation = new Reservation(id, room, guest, from, to);
         reservations.add(reservation);
+    }
+
+
+    public void remove(int reservationId) {
+        int reservationToBeRemoved = -1;
+        for (int i = 0; i < reservations.size(); i++) {
+            if (reservations.get(i).id() == reservationId) {
+                reservationToBeRemoved = i;
+                break;
+            }
+        }
+        if (reservationToBeRemoved > -1) {
+            reservations.remove(reservationToBeRemoved);
+        }
+    }
+
+
+    public void edit(int reservationId, Room room, Guest guest, LocalDateTime fromWithTime, LocalDateTime toWithTime) {
+        reservations.remove(reservationId);
+        addExistingReservation(reservationId, room, guest, fromWithTime, toWithTime);
+
+
     }
 }
