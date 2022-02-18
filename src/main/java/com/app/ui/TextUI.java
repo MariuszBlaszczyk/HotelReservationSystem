@@ -251,9 +251,13 @@ public class TextUI {
         int roomId = input.nextInt();
         System.out.println("Please enter the guest id");
         int guestId = input.nextInt();
-        Reservation reservation = reservationService.createNewReservation(from, to, roomId, guestId);
-        if (reservation != null) {
-            System.out.println("It was possible to create a reservation.");
+        try {
+            Reservation reservation = reservationService.createNewReservation(from, to, roomId, guestId);
+            if (reservation != null) {
+                System.out.println("It was possible to create a reservation.");
+            }
+        } catch (IllegalArgumentException ex) {
+            System.out.println("The end date of the booking cannot be earlier than the start date.");
         }
     }
 

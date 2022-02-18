@@ -15,12 +15,16 @@ public class ReservationService {
     private final GuestService guestService = new GuestService();
     private final ReservationRepository reservationRepository = new ReservationRepository();
 
-    public Reservation createNewReservation(LocalDate from, LocalDate to, int roomId, int guestId) {
+    public Reservation createNewReservation(LocalDate from, LocalDate to, int roomId, int guestId) throws IllegalArgumentException {
         Room room = roomService.getRoomById(roomId);
         Guest guest = guestService.getGuestById(guestId);
 
         LocalDateTime fromWithTime = from.atTime(Utils.HOTEL_NIGHT_START_HOUR, Utils.HOTEL_NIGHT_START_MINUTE);
         LocalDateTime toWithTime = to.atTime(Utils.HOTEL_NIGHT_END_HOUR, Utils.HOTEL_NIGHT_END_MINUTE);
+
+        if (toWithTime.isBefore(fromWithTime)) {
+            throw new IllegalArgumentException();
+        }
 
         return reservationRepository.createNewReservation(room, guest, fromWithTime, toWithTime);
     }

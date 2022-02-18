@@ -66,6 +66,9 @@ public class RoomRepository {
             String[] roomsAsString = data.split(System.getProperty("line.separator"));
             for (String roomAsString : roomsAsString) {
                 String[] roomData = roomAsString.split(",");
+                if(roomData[0]==null || roomData[0].trim().isEmpty()) {
+                    continue;
+                }
                 int id = Integer.parseInt(roomData[0]);
                 int roomNumber = Integer.parseInt(roomData[1]);
                 String bedTypesData = roomData[2];
@@ -75,7 +78,6 @@ public class RoomRepository {
                     bedTypes[i] = BedType.valueOf(bedTypesAsString[i]);
                 }
                 addExistingGuest(id, roomNumber, bedTypes);
-
             }
         } catch (IOException e) {
             throw new PersistenceToFileException(filepath.toString(), "write", "room data");
