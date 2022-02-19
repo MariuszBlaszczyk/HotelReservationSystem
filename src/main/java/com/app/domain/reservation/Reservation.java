@@ -18,4 +18,13 @@ public record Reservation(int id, Room room, Guest guest, LocalDateTime from,
                 this.to.toString(),
                 System.getProperty("line.separator"));
     }
+
+    @Override
+    public String toString() {
+        return "Reservation id = " + id + "\n" +
+                room +
+                "- guest: " + guest + "\n" +
+                "- from: " + from + "\n" +
+                "- to: " + to;
+    }
 }

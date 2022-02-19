@@ -16,7 +16,7 @@ public record Guest(int id, String firstName, String lastName, int age, Gender g
                 firstName + " " +
                 lastName +
                 ", age: " + age +
-                ", gender: " + gender + ".";
+                ", gender: " + gender;
     }
 
 }

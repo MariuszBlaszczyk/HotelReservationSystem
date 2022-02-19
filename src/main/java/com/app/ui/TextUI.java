@@ -255,7 +255,7 @@ public class TextUI {
 
 
     private void removeRoom(Scanner input) {
-        System.out.println("Enter the guest ID number to delete.");
+        System.out.println("Enter the room ID number to delete.");
         try {
             int guestId = input.nextInt();
             roomService.removeRoomFromList(guestId);
@@ -310,10 +310,6 @@ public class TextUI {
             System.out.println("Please enter the guest id");
             int guestId = input.nextInt();
             try {
-                Reservation reservation = reservationService.createNewReservation(from, to, roomId, guestId);
-                if (reservation != null) {
-                    System.out.println("It was possible to create a reservation.");
-                }
                 reservationService.editReservation(reservationId, from, to, roomId, guestId);
             } catch (IllegalArgumentException ex) {
                 System.out.println("The end date of the booking cannot be earlier than the start date.");
