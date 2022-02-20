@@ -111,7 +111,7 @@ public class ReservationRepository {
 
 
     public void edit(int reservationId, Room room, Guest guest, LocalDateTime fromWithTime, LocalDateTime toWithTime) {
-        reservations.remove(reservationId);
+        remove(reservationId);
         addExistingReservation(reservationId, room, guest, fromWithTime, toWithTime);
     }
 }
