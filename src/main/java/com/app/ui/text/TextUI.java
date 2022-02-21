@@ -1,4 +1,4 @@
-package com.app.ui;
+package com.app.ui.text;
 
 import com.app.domain.guest.Gender;
 import com.app.domain.guest.Guest;

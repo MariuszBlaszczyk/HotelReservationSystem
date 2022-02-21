@@ -1,6 +1,6 @@
 package com.app.domain.room;
 
-import com.app.ui.TextUI;
+import com.app.ui.text.TextUI;
 
 import java.util.List;
 
