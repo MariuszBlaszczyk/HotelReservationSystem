@@ -1,7 +1,9 @@
 package com.app.domain.room;
 
+import com.app.domain.room.dto.RoomDTO;
 import com.app.ui.text.TextUI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomService {
@@ -46,4 +48,18 @@ public class RoomService {
     public Room getRoomById(int roomId) {
         return ROOM_REPOSITORY.getById(roomId);
     }
+
+
+    public List<RoomDTO> getAllAsDTO() {
+        List<RoomDTO> result = new ArrayList<>();
+        List<Room> allRooms = ROOM_REPOSITORY.getAll();
+
+        for (Room room : allRooms) {
+            RoomDTO dto = room.gemerateDTO();
+            result.add(dto);
+        }
+
+        return result;
+    }
+
 }

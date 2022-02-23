@@ -15,10 +15,10 @@ public class MainTabView {
         reservationTab.setClosable(false);
         Tab guestTab = new Tab("Guests", new Label("Guest service"));
         guestTab.setClosable(false);
-        Tab roomTab = new Tab("Rooms", new Label("Room service"));
-        roomTab.setClosable(false);
 
-        this.mainTabs.getTabs().addAll(reservationTab, guestTab, roomTab);
+        RoomsTab roomsTab = new RoomsTab();
+
+        this.mainTabs.getTabs().addAll(reservationTab, guestTab, roomsTab.getRoomTab());
     }
 
     TabPane getMainTabs() {
