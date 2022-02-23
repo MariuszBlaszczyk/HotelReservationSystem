@@ -1,5 +1,6 @@
 package com.app;
 
+import com.app.domain.ObjectPool;
 import com.app.domain.guest.GuestService;
 import com.app.domain.reservation.ReservationService;
 import com.app.domain.room.RoomService;
@@ -13,9 +14,9 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private static final TextUI TEXT_UI = new TextUI();
-    private static final GuestService GUEST_SERVICE = new GuestService();
-    private static final RoomService ROOM_SERVICE = new RoomService();
-    private static final ReservationService RESERVATION_SERVICE = new ReservationService();
+    private static final GuestService GUEST_SERVICE = ObjectPool.getGuestService();
+    private static final RoomService ROOM_SERVICE = ObjectPool.getRoomService();
+    private static final ReservationService RESERVATION_SERVICE = ObjectPool.getReservationService();
 
     public static void main(String[] args) {
 

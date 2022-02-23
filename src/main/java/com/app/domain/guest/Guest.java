@@ -1,6 +1,8 @@
 package com.app.domain.guest;
 
 
+import com.app.domain.guest.dto.GuestDTO;
+
 public record Guest(int id, String firstName, String lastName, int age, Gender gender) {
 
 
@@ -19,4 +21,11 @@ public record Guest(int id, String firstName, String lastName, int age, Gender g
                 ", gender: " + gender;
     }
 
+    public GuestDTO generateDTO() {
+        String gender = "MALE";
+        if (this.gender.equals(Gender.FEMALE)) {
+            gender = "FEMALE";
+        }
+        return new GuestDTO(this.id, this.firstName, this.lastName, this.age, gender);
+    }
 }

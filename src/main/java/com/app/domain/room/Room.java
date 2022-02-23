@@ -22,6 +22,16 @@ public record Room(int id, int number, BedType[] bedType) {
         return bedsAsString;
     }
 
+    public RoomDTO gemerateDTO() {
+        String[] bedsAsString = getBedsAsString();
+        String typesOfBeds = String.join(",", bedsAsString);
+        int roomSize = 0;
+        for (BedType bedType : bedType) {
+            roomSize += bedType.getSize();
+        }
+        return new RoomDTO(this.id, this.number, typesOfBeds, bedType.length, roomSize);
+    }
+
 
     @Override
     public String toString() {
@@ -31,9 +41,5 @@ public record Room(int id, int number, BedType[] bedType) {
                 "- type of bed: " + Arrays.toString(bedType) + "\n";
     }
 
-    public RoomDTO gemerateDTO() {
-        String[] bedsAsString = getBedsAsString();
-        String typesOfBeds = String.join(",", bedsAsString);
-        return new RoomDTO(this.id, this.number, typesOfBeds);
-    }
+
 }

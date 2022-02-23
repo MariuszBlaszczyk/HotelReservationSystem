@@ -13,7 +13,16 @@ import java.util.List;
 
 public class GuestRepository {
 
+    private final static GuestRepository INSTANCE = new GuestRepository();
+
     private final List<Guest> guests = new ArrayList<>();
+
+    private GuestRepository() {
+    }
+
+    public static GuestRepository getInstance() {
+        return INSTANCE;
+    }
 
     Guest createNewGuest(String firstName, String lastName, int age, Gender gender) {
         Guest newGuest = new Guest(findNewIdForTheGuest(), firstName, lastName, age, gender);

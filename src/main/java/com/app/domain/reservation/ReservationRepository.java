@@ -1,6 +1,7 @@
 package com.app.domain.reservation;
 
 
+import com.app.domain.ObjectPool;
 import com.app.domain.guest.Guest;
 import com.app.domain.guest.GuestService;
 import com.app.domain.room.Room;
@@ -19,10 +20,19 @@ import java.util.List;
 
 public class ReservationRepository {
 
-    GuestService guestService = new GuestService();
-    RoomService roomService = new RoomService();
+    private static final ReservationRepository INSTANCE = new ReservationRepository();
+
+    GuestService guestService = ObjectPool.getGuestService();
+    RoomService roomService = ObjectPool.getRoomService();
 
     static List<Reservation> reservations = new ArrayList<>();
+
+    private ReservationRepository() {
+    }
+
+    public static ReservationRepository getInstance() {
+        return INSTANCE;
+    }
 
     static List<Reservation> getAll() {
         return reservations;

@@ -15,6 +15,15 @@ public class RoomRepository {
 
     private final List<Room> rooms = new ArrayList<>();
 
+    private final static RoomRepository INSTANCE = new RoomRepository();
+
+    private RoomRepository() {
+    }
+
+    public static RoomRepository getInstance() {
+        return INSTANCE;
+    }
+
     Room createNewRoom(int roomNumber, BedType[] bedTypes) {
         Room newRoom = new Room(findNewIdForTheRoom(), roomNumber, bedTypes);
         this.rooms.add(newRoom);
@@ -66,7 +75,7 @@ public class RoomRepository {
             String[] roomsAsString = data.split(System.getProperty("line.separator"));
             for (String roomAsString : roomsAsString) {
                 String[] roomData = roomAsString.split(",");
-                if(roomData[0]==null || roomData[0].trim().isEmpty()) {
+                if (roomData[0] == null || roomData[0].trim().isEmpty()) {
                     continue;
                 }
                 int id = Integer.parseInt(roomData[0]);

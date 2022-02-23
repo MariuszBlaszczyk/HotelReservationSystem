@@ -1,5 +1,6 @@
 package com.app.ui.gui;
 
+import com.app.domain.ObjectPool;
 import com.app.domain.room.RoomService;
 import com.app.domain.room.dto.RoomDTO;
 import javafx.scene.control.Tab;
@@ -11,8 +12,7 @@ import java.util.List;
 
 public class RoomsTab {
 
-    private Tab roomTab;
-    private RoomService roomService = new RoomService();
+    private final Tab roomTab;
 
     public RoomsTab() {
 
@@ -21,11 +21,18 @@ public class RoomsTab {
         TableColumn<RoomDTO, Integer> numberColumn = new TableColumn<>("Number");
         numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
 
-        TableColumn<RoomDTO, String> bedsColumn = new TableColumn<>("Bed types");
-        bedsColumn.setCellValueFactory(new PropertyValueFactory<>("beds"));
+        TableColumn<RoomDTO, Integer> roomSizeColumn = new TableColumn<>("Room size");
+        roomSizeColumn.setCellValueFactory(new PropertyValueFactory<>("roomSize"));
 
-        tableView.getColumns().addAll(numberColumn, bedsColumn);
+        TableColumn<RoomDTO, Integer> bedsCountColumn = new TableColumn<>("Number of beds");
+        bedsCountColumn.setCellValueFactory(new PropertyValueFactory<>("bedsCount"));
 
+        TableColumn<RoomDTO, String> bedsTypesColumn = new TableColumn<>("Bed types");
+        bedsTypesColumn.setCellValueFactory(new PropertyValueFactory<>("beds"));
+
+        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsTypesColumn);
+
+        RoomService roomService = ObjectPool.getRoomService();
         List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
 
         tableView.getItems().addAll(allAsDTO);

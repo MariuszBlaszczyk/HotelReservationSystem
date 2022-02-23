@@ -1,6 +1,7 @@
 package com.app.domain.reservation;
 
 import com.app.domain.guest.Guest;
+import com.app.domain.reservation.dto.ReservationDTO;
 import com.app.domain.room.Room;
 
 import java.time.LocalDateTime;
@@ -26,5 +27,10 @@ public record Reservation(int id, Room room, Guest guest, LocalDateTime from,
                 "- guest: " + guest + "\n" +
                 "- from: " + from + "\n" +
                 "- to: " + to;
+    }
+
+    public ReservationDTO generateDTO() {
+        String guestName = this.guest.firstName() + " " + this.guest.lastName();
+        return new ReservationDTO(this.id, this.from, this.to, this.room.id(), this.room.number(), this.guest.id(), guestName);
     }
 }

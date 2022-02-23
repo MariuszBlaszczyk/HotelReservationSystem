@@ -1,5 +1,6 @@
 package com.app.ui.text;
 
+import com.app.domain.ObjectPool;
 import com.app.domain.guest.Gender;
 import com.app.domain.guest.Guest;
 import com.app.domain.guest.GuestService;
@@ -20,9 +21,9 @@ import java.util.Scanner;
 
 public class TextUI {
 
-    private final GuestService guestService = new GuestService();
-    private final RoomService roomService = new RoomService();
-    private final ReservationService reservationService = new ReservationService();
+    private  final GuestService guestService = ObjectPool.getGuestService();
+    private  final RoomService roomService = ObjectPool.getRoomService();
+    private  final ReservationService reservationService = ObjectPool.getReservationService();
 
     public void showSystemInfo() {
         System.out.print("Welcome to the reservation system for the ");
@@ -36,9 +37,9 @@ public class TextUI {
 
     public void showMainMenu() {
         System.out.println("Loading data in progress...");
-        this.guestService.readAllGuestsFromFile();
-        this.roomService.readAllRoomsFromFile();
-        this.reservationService.readAllReservationsFromFile();
+        guestService.readAllGuestsFromFile();
+        roomService.readAllRoomsFromFile();
+        reservationService.readAllReservationsFromFile();
         Scanner input = new Scanner(System.in);
         try {
             performAction(input);
@@ -94,9 +95,9 @@ public class TextUI {
             switch (option) {
                 case 0 -> {
                     System.out.println("I am leaving the application. Saves the data to a file.");
-                    this.guestService.writeAllGuestsToFile();
-                    this.roomService.writeAllRoomsToFile();
-                    this.reservationService.writeAllReservationsToFile();
+                    guestService.writeAllGuestsToFile();
+                    roomService.writeAllRoomsToFile();
+                    reservationService.writeAllReservationsToFile();
                 }
                 case 1 -> readNewGuestData(input);
                 case 2 -> editGuestData(input);
@@ -186,7 +187,7 @@ public class TextUI {
     }
 
     private void showGuestList() {
-        List<Guest> guests = this.guestService.getAllGuests();
+        List<Guest> guests = guestService.getAllGuests();
 
         for (Guest guest : guests) {
             System.out.println(guest);
@@ -265,7 +266,7 @@ public class TextUI {
     }
 
     private void showRoomList() {
-        List<Room> rooms = this.roomService.getAllRooms();
+        List<Room> rooms = roomService.getAllRooms();
 
         for (Room room : rooms) {
             System.out.println(room);
@@ -332,7 +333,7 @@ public class TextUI {
 
 
     private void showReservationList() {
-        List<Reservation> reservations = this.reservationService.getAllReservations();
+        List<Reservation> reservations = reservationService.getAllReservations();
 
         for (Reservation reservation : reservations) {
             System.out.println(reservation);

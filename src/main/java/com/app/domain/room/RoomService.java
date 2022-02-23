@@ -1,5 +1,6 @@
 package com.app.domain.room;
 
+import com.app.domain.ObjectPool;
 import com.app.domain.room.dto.RoomDTO;
 import com.app.ui.text.TextUI;
 
@@ -8,27 +9,36 @@ import java.util.List;
 
 public class RoomService {
 
-    private final static RoomRepository ROOM_REPOSITORY = new RoomRepository();
+    private final RoomRepository roomRepository = ObjectPool.getRoomRepository();
+
+    private final static RoomService INSTANCE = new RoomService();
+
+    private RoomService() {
+    }
+
+    public static RoomService getInstance() {
+        return INSTANCE;
+    }
 
     public Room createNewRoom(int roomNumber, int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
         for (int i = 0; i < bedTypes.length; i++) {
             bedTypes[i] = TextUI.chooseBedTypeFromNumberValue(bedTypesOptions[i]);
         }
-        return ROOM_REPOSITORY.createNewRoom(roomNumber, bedTypes);
+        return roomRepository.createNewRoom(roomNumber, bedTypes);
     }
 
 
     public List<Room> getAllRooms() {
-        return ROOM_REPOSITORY.getAll();
+        return roomRepository.getAll();
     }
 
     public void writeAllRoomsToFile() {
-        ROOM_REPOSITORY.writeAllRoomsToFile();
+        roomRepository.writeAllRoomsToFile();
     }
 
     public void readAllRoomsFromFile() {
-        ROOM_REPOSITORY.readAllRoomsFromFile();
+        roomRepository.readAllRoomsFromFile();
     }
 
 
@@ -37,22 +47,22 @@ public class RoomService {
         for (int i = 0; i < bedTypes.length; i++) {
             bedTypes[i] = TextUI.chooseBedTypeFromNumberValue(bedTypesOptions[i]);
         }
-        ROOM_REPOSITORY.edit(roomId, numberRoom, bedTypes);
+        roomRepository.edit(roomId, numberRoom, bedTypes);
     }
 
     public void removeRoomFromList(int roomId) {
-        ROOM_REPOSITORY.remove(roomId);
+        roomRepository.remove(roomId);
     }
 
 
     public Room getRoomById(int roomId) {
-        return ROOM_REPOSITORY.getById(roomId);
+        return roomRepository.getById(roomId);
     }
 
 
     public List<RoomDTO> getAllAsDTO() {
         List<RoomDTO> result = new ArrayList<>();
-        List<Room> allRooms = ROOM_REPOSITORY.getAll();
+        List<Room> allRooms = roomRepository.getAll();
 
         for (Room room : allRooms) {
             RoomDTO dto = room.gemerateDTO();
