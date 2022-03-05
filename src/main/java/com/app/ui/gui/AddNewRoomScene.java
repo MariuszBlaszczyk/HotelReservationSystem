@@ -24,7 +24,7 @@ public class AddNewRoomScene {
         bedTypeField.setValue("Single");//ustawiamy domyślną wartość, która jako pierwsza wyświetli nam się przy wyborze
         HBox bedType = new HBox(bedTypeLabel, bedTypeField);//tworzymy Hbox, który zgrupuje nam te informacje
 
-        VBox vbox = new VBox(roomNumber, bedType);//tworzymy Vbox który przyjmuje obydwa HBoxy które nam pogrupuje
+        VBox vbox = new VBox(roomNumber, bedType);//tworzymy Vbox, który przyjmuje obydwa HBoxy, które nam pogrupuje
 
         this.mainScene = new Scene(vbox, 740, 580);//przesyłamy VBox do sceny
     }
