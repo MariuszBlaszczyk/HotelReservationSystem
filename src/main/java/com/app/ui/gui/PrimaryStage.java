@@ -10,9 +10,9 @@ public class PrimaryStage {
         String hotelName = Utils.HOTEL_NAME;
         int systemVersion = Utils.SYSTEM_VERSION;
 
-        MainTabView mainTabView = new MainTabView();
+        MainTabView mainTabView = new MainTabView(primaryStage);
 
-        Scene scene = new Scene(mainTabView.getMainTabs(), 640, 480);
+        Scene scene = new Scene(mainTabView.getMainTabs(), 740, 580);
         String title = String.format("Hotel reservation system %s (%d)", hotelName, systemVersion);
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);

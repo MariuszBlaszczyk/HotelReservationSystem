@@ -3,10 +3,13 @@ package com.app.ui.gui;
 import com.app.domain.ObjectPool;
 import com.app.domain.room.RoomService;
 import com.app.domain.room.dto.RoomDTO;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -14,7 +17,7 @@ public class RoomsTab {
 
     private final Tab roomTab;
 
-    public RoomsTab() {
+    public RoomsTab(Stage primaryStage) {
 
         TableView<RoomDTO> tableView = new TableView<>();
 
@@ -37,7 +40,26 @@ public class RoomsTab {
 
         tableView.getItems().addAll(allAsDTO);
 
-        this.roomTab = new Tab("Rooms", tableView);
+        Button button = new Button("Create new");
+
+        button.setOnAction(actionEvent -> {
+            Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
+
+            Label numberLabel = new Label("Room number");// dodajemy napis Room number, żebyśmy wiedzieli co należy wpisać
+            TextField numberField = new TextField();//tworzymy pole tekstowe
+            HBox roomNumber = new HBox(numberLabel, numberField);//tworzymy horyzontalny box umieszczamy label i textfield
+            Scene newRoomScene = new Scene(roomNumber, 740, 580);//tworzymy nową scenę z rozmiarem i dodajemy HBox
+            stage.setScene(newRoomScene);
+
+            stage.initOwner(primaryStage);
+            stage.setTitle("Add new room");
+            stage.showAndWait();
+        });
+
+        VBox layout = new VBox(button, tableView);
+
+        this.roomTab = new Tab("Rooms", layout);
         roomTab.setClosable(false);
     }
 

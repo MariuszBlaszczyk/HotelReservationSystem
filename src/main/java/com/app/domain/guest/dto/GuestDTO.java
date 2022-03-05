@@ -6,6 +6,7 @@ public class GuestDTO {
     private final String lastName;
     private final int age;
     private final String gender;
+
     public GuestDTO(int id, String firstName, String lastName, int age, String gender) {
         this.id = id;
         this.firstName = firstName;
