@@ -37,7 +37,7 @@ public class App extends Application {
     }
 
     @Override
-    public void stop () {//tworzymy metodę zamykającą aplikację i dodajemy do niej metody zapisujące wprowadzone dane
+    public void stop () {
         System.out.println("I am leaving the application. Saves the data to a file.");
         GUEST_SERVICE.writeAllGuestsToFile();
         ROOM_SERVICE.writeAllRoomsToFile();

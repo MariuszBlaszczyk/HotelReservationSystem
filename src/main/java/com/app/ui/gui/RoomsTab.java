@@ -29,8 +29,7 @@ public class RoomsTab {
             stage.initModality(Modality.WINDOW_MODAL);
 
 
-            stage.setScene(new AddNewRoomScene(stage, tableView).getMainScene());//wysyłamy stage jako parametr,
-            // by móc ustawić zamykanie okna klasy i tutaj ją wywołaliśmy oraz tableView, by móc zarządzać odczytem danych
+            stage.setScene(new AddNewRoomScene(stage, tableView).getMainScene());
 
             stage.initOwner(primaryStage);
             stage.setTitle("Add new room");

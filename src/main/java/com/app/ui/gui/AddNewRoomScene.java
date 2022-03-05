@@ -16,7 +16,7 @@ public class AddNewRoomScene {
 
     private final Scene mainScene;
     private final List<ComboBox<String>> comboBoxes = new ArrayList<>();
-    private final RoomService roomService = ObjectPool.getRoomService();//tworzymy dostęp do room service
+    private final RoomService roomService = ObjectPool.getRoomService();
 
     public AddNewRoomScene(Stage stage, TableView<RoomDTO> tableView) {
 
@@ -34,24 +34,24 @@ public class AddNewRoomScene {
 
         addNewBadButton.setOnAction(actionEvent -> bedsVerticalLayout.getChildren().addAll(getBedTypeFieldCombobox()));
 
-        Button addNewRoomButton = new Button("Add new room");//dodajemy guzik do dodawania nowego pokoju
+        Button addNewRoomButton = new Button("Add new room");
         addNewRoomButton.setOnAction(actionEvent -> {
-                    int newRoomNumber = Integer.parseInt(numberField.getText());//pobieramy numer pokoju z label utworzonego wyżej
-                    List<String> bedTypes = new ArrayList<>();//tworzymy listę, do której będziemy dopisywać typy łóżek
+                    int newRoomNumber = Integer.parseInt(numberField.getText());
+                    List<String> bedTypes = new ArrayList<>();
                     this.comboBoxes.forEach(comboBoxes ->
                             bedTypes.add(comboBoxes.getValue()));
-                    this.roomService.createNewRoom(newRoomNumber, bedTypes);//listę Stringów dodajemy tutaj
+                    this.roomService.createNewRoom(newRoomNumber, bedTypes);
 
-                    tableView.getItems().clear();//czyści tableView
+                    tableView.getItems().clear();
 
-                    List<RoomDTO> allAsDTO = roomService.getAllAsDTO();//pobierz elementy
-                    tableView.getItems().addAll(allAsDTO);//dodaj elementy które już były
+                    List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
+                    tableView.getItems().addAll(allAsDTO);
 
-                    stage.close();//po kliknięciu dodaj nowy pokój zamyka okno dodawania
+                    stage.close();
                 }
         );
 
-        VBox mainFormLayout = new VBox(roomNumber, bedsVerticalLayout, addNewRoomButton);//dodajemy guzik do layoutu
+        VBox mainFormLayout = new VBox(roomNumber, bedsVerticalLayout, addNewRoomButton);
 
         this.mainScene = new Scene(mainFormLayout, 740, 580);
     }
