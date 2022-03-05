@@ -29,8 +29,8 @@ public class RoomsTab {
             stage.initModality(Modality.WINDOW_MODAL);
 
 
-            stage.setScene(new AddNewRoomScene().getMainScene());//przerzuciliśmy logikę tworzenia sceny nowego pokoju do osobnej
-            //klasy i tutaj ją wywołaliśmy
+            stage.setScene(new AddNewRoomScene(stage, tableView).getMainScene());//wysyłamy stage jako parametr,
+            // by móc ustawić zamykanie okna klasy i tutaj ją wywołaliśmy oraz tableView, by móc zarządzać odczytem danych
 
             stage.initOwner(primaryStage);
             stage.setTitle("Add new room");
@@ -48,7 +48,7 @@ public class RoomsTab {
         return roomTab;
     }
 
-    private TableView<RoomDTO> getRoomDTOTableView() {//stworzyliśmy metodę, żeby kod był lepiej czytelny
+    private TableView<RoomDTO> getRoomDTOTableView() {
         TableView<RoomDTO> tableView = new TableView<>();
 
         TableColumn<RoomDTO, Integer> numberColumn = new TableColumn<>("Number");

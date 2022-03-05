@@ -15,15 +15,16 @@ import com.app.exceptions.WrongOptionException;
 import com.app.utils.Utils;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class TextUI {
 
-    private  final GuestService guestService = ObjectPool.getGuestService();
-    private  final RoomService roomService = ObjectPool.getRoomService();
-    private  final ReservationService reservationService = ObjectPool.getReservationService();
+    private final GuestService guestService = ObjectPool.getGuestService();
+    private final RoomService roomService = ObjectPool.getRoomService();
+    private final ReservationService reservationService = ObjectPool.getReservationService();
 
     public void showSystemInfo() {
         System.out.print("Welcome to the reservation system for the ");
@@ -236,6 +237,16 @@ public class TextUI {
         for (BedType bedType : values) {
             if (bedType.getValue() == userValue)
                 return bedType;
+        }
+        throw new WrongOptionException("Wrong option when selecting bed type");
+    }
+
+    public static BedType chooseBedTypeFromEnum(String expression) {
+        BedType[] values = BedType.values();
+        for (BedType bedType : values) {
+            if (bedType.name().equals(expression)) {
+                return bedType;
+            }
         }
         throw new WrongOptionException("Wrong option when selecting bed type");
     }

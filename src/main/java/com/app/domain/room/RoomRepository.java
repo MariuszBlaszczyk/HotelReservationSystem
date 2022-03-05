@@ -30,6 +30,7 @@ public class RoomRepository {
         return newRoom;
     }
 
+
     void addExistingGuest(int id, int roomNumber, BedType[] bedTypes) {
         Room newRoom = new Room(id, roomNumber, bedTypes);
         this.rooms.add(newRoom);

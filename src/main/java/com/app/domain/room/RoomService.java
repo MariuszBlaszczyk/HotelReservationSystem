@@ -28,6 +28,21 @@ public class RoomService {
         return roomRepository.createNewRoom(roomNumber, bedTypes);
     }
 
+    //nadpisujemy metodę do tworzenia pokoju, żeby zamiast tablicy int, która jest mało czytelna
+    //wprowadzić listę Stringów, która ułatwi nam podawanie typów łóżek
+    public Room createNewRoom(int roomNumber, List<String> bedTypeAsString) {
+        BedType[] bedTypes = new BedType[bedTypeAsString.size()];//w Room mamy tablicę bedtype, więc tutaj też musimy
+        //podać taką zmienną a jej wielkość to rozmiar listy podanej w argumencie
+
+        for (int i = 0; i < bedTypeAsString.size(); i++) {
+
+            bedTypes[i] = TextUI.chooseBedTypeFromEnum(bedTypeAsString.toString());
+
+        }
+
+        return roomRepository.createNewRoom(roomNumber, bedTypes);
+    }
+
 
     public List<Room> getAllRooms() {
         return roomRepository.getAll();

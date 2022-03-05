@@ -30,9 +30,18 @@ public class App extends Application {
 
     }
 
+    @Override
     public void start(Stage primaryStage) {
         PrimaryStage primary = new PrimaryStage();
         primary.initialize(primaryStage);
+    }
+
+    @Override
+    public void stop () {//tworzymy metodę zamykającą aplikację i dodajemy do niej metody zapisujące wprowadzone dane
+        System.out.println("I am leaving the application. Saves the data to a file.");
+        GUEST_SERVICE.writeAllGuestsToFile();
+        ROOM_SERVICE.writeAllRoomsToFile();
+        RESERVATION_SERVICE.writeAllReservationsToFile();
     }
 
 }
