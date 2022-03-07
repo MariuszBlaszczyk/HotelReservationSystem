@@ -11,7 +11,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 
-public class App extends Application {
+public class App /*extends Application*/ {
 
     private static final TextUI TEXT_UI = new TextUI();
     private static final GuestService GUEST_SERVICE = ObjectPool.getGuestService();
@@ -27,26 +27,26 @@ public class App extends Application {
         RESERVATION_SERVICE.readAllReservationsFromFile();
 
 
-        Application.launch(args);
+//        Application.launch(args);
 
-//        TEXT_UI.showSystemInfo();
-//        TEXT_UI.showMainMenu();
+        TEXT_UI.showSystemInfo();
+        TEXT_UI.showMainMenu();
 
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        PrimaryStage primary = new PrimaryStage();
-        primary.initialize(primaryStage);
-    }
-
-    @Override
-    public void stop() {
-        System.out.println("I am leaving the application. Saves the data to a file.");
-        GUEST_SERVICE.writeAllGuestsToFile();
-        ROOM_SERVICE.writeAllRoomsToFile();
-        RESERVATION_SERVICE.writeAllReservationsToFile();
-    }
+//    @Override
+//    public void start(Stage primaryStage) {
+//        PrimaryStage primary = new PrimaryStage();
+//        primary.initialize(primaryStage);
+//    }
+//
+//    @Override
+//    public void stop() {
+//        System.out.println("I am leaving the application. Saves the data to a file.");
+//        GUEST_SERVICE.writeAllGuestsToFile();
+//        ROOM_SERVICE.writeAllRoomsToFile();
+//        RESERVATION_SERVICE.writeAllReservationsToFile();
+//    }
 
 }
 
