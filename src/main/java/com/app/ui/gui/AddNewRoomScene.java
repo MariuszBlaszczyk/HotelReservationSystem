@@ -3,14 +3,20 @@ package com.app.ui.gui;
 import com.app.domain.ObjectPool;
 import com.app.domain.room.RoomService;
 import com.app.domain.room.dto.RoomDTO;
+import com.app.utils.Utils;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AddNewRoomScene {
 
@@ -20,18 +26,38 @@ public class AddNewRoomScene {
 
     public AddNewRoomScene(Stage stage, TableView<RoomDTO> tableView) {
 
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+
+
         Label numberLabel = new Label("Room number");
         TextField numberField = new TextField();
-        HBox roomNumber = new HBox(numberLabel, numberField);
 
-        Label bedTypeLabel = new Label("Beds types:");
-        Button addNewBadButton = new Button("Add new bed");
+        numberField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                numberField.setText(oldValue);
+            }
+        });
 
+        gridPane.add(numberLabel, 0, 0);
+        gridPane.add(numberField, 1, 0);
 
-        HBox bedTypeRow = new HBox(bedTypeLabel, addNewBadButton);
+        Label bedTypeLabel = new Label("Beds types: ");
 
-        VBox bedsVerticalLayout = new VBox(bedTypeRow, getBedTypeFieldCombobox());
+        Button addNewBadButton = new Button();
 
+        Image addIcon = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("icon add.png")));
+        ImageView imageViewAddIcon = new ImageView(addIcon);
+        imageViewAddIcon.setFitHeight(16);
+        imageViewAddIcon.setFitWidth(16);
+        addNewBadButton.setGraphic(imageViewAddIcon);
+        addNewBadButton.setPadding(Insets.EMPTY);
+
+        gridPane.add(bedTypeLabel, 0, 1);
+        gridPane.add(addNewBadButton, 1, 1);
+        gridPane.setVgap(20);
+
+        VBox bedsVerticalLayout = new VBox(getBedTypeFieldCombobox());
         addNewBadButton.setOnAction(actionEvent -> bedsVerticalLayout.getChildren().addAll(getBedTypeFieldCombobox()));
 
         Button addNewRoomButton = new Button("Add new room");
@@ -51,9 +77,19 @@ public class AddNewRoomScene {
                 }
         );
 
-        VBox mainFormLayout = new VBox(roomNumber, bedsVerticalLayout, addNewRoomButton);
+        addNewRoomButton.setPadding(new Insets(5, 5, 5, 5));
 
-        this.mainScene = new Scene(mainFormLayout, 740, 580);
+        gridPane.add(bedsVerticalLayout, 1, 2);
+        gridPane.add(addNewRoomButton, 0, 3);
+
+
+        this.mainScene = new Scene(gridPane, 740, 580);
+
+        this.mainScene.getStylesheets()
+                .add(Objects.requireNonNull(getClass()
+                                .getClassLoader()
+                                .getResource("hotelReservation.css"))
+                        .toExternalForm());
     }
 
 
@@ -64,8 +100,8 @@ public class AddNewRoomScene {
 
     private ComboBox<String> getBedTypeFieldCombobox() {
         ComboBox<String> bedTypeField = new ComboBox<>();
-        bedTypeField.getItems().addAll("Single", "Double", "King size");
-        bedTypeField.setValue("Single");
+        bedTypeField.getItems().addAll(Utils.SINGLE_BED, Utils.DOUBLE_BED, Utils.KINGSIZE_BED);
+        bedTypeField.setValue(Utils.SINGLE_BED);
         this.comboBoxes.add(bedTypeField);
         return bedTypeField;
     }

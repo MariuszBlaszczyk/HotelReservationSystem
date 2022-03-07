@@ -15,7 +15,6 @@ import com.app.exceptions.WrongOptionException;
 import com.app.utils.Utils;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -244,7 +243,7 @@ public class TextUI {
     public static BedType chooseBedTypeFromEnum(String expression) {
         BedType[] values = BedType.values();
         for (BedType bedType : values) {
-            if (bedType.name().equals(expression)) {
+            if (expression.equalsIgnoreCase(bedType.toString())) {
                 return bedType;
             }
         }

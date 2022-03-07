@@ -1,9 +1,9 @@
 package com.app.domain.room;
 
 public enum BedType {
-    SINGLE(1, 2),
+    SINGLE(1, 1),
     DOUBLE(2, 2),
-    KING_SIZE(3, 2);
+    KINGSIZE(3, 4);
 
     private final int value;
     private final int size;

@@ -34,7 +34,7 @@ public class RoomService {
 
         for (int i = 0; i < bedTypeAsString.size(); i++) {
 
-            bedTypes[i] = TextUI.chooseBedTypeFromEnum(bedTypeAsString.toString());
+            bedTypes[i] = TextUI.chooseBedTypeFromEnum(bedTypeAsString.get(i));
 
         }
 

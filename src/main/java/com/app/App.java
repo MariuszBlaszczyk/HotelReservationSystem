@@ -26,7 +26,11 @@ public class App extends Application {
         ROOM_SERVICE.readAllRoomsFromFile();
         RESERVATION_SERVICE.readAllReservationsFromFile();
 
+
         Application.launch(args);
+
+//        TEXT_UI.showSystemInfo();
+//        TEXT_UI.showMainMenu();
 
     }
 
@@ -37,7 +41,7 @@ public class App extends Application {
     }
 
     @Override
-    public void stop () {
+    public void stop() {
         System.out.println("I am leaving the application. Saves the data to a file.");
         GUEST_SERVICE.writeAllGuestsToFile();
         ROOM_SERVICE.writeAllRoomsToFile();
