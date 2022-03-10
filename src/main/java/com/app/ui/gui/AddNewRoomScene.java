@@ -24,7 +24,7 @@ public class AddNewRoomScene {
     private final List<ComboBox<String>> comboBoxes = new ArrayList<>();
     private final RoomService roomService = ObjectPool.getRoomService();
 
-    public AddNewRoomScene(Stage stage, TableView<RoomDTO> tableView) {
+    public AddNewRoomScene(Stage modalStage, TableView<RoomDTO> tableView) {
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -73,7 +73,7 @@ public class AddNewRoomScene {
                     List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
                     tableView.getItems().addAll(allAsDTO);
 
-                    stage.close();
+                    modalStage.close();
                 }
         );
 

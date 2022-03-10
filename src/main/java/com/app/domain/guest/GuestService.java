@@ -26,6 +26,14 @@ public class GuestService {
         return guestRepository.createNewGuest(firstName, lastName, age, gender);
     }
 
+    public Guest createNewGuest(String firstName, String lastName, int age, boolean isMale) {
+        Gender gender = Gender.FEMALE;
+        if (isMale) {
+            gender = Gender.MALE;
+        }
+        return guestRepository.createNewGuest(firstName, lastName, age, gender);
+    }
+
 
     public List<Guest> getAllGuests() {
         return guestRepository.getAll();

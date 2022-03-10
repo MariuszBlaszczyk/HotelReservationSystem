@@ -29,6 +29,9 @@ public class Utils {
     public static final Path DATA_DIRECTORY = Paths.get(System.getProperty("user.home"),
             "reservation_system");
 
+    public static final String FEMALE = "Female";
+    public static final String MALE = "Male";
+
 
     public static void createDataDirectory() {
         if (!Files.isDirectory(DATA_DIRECTORY)) {
