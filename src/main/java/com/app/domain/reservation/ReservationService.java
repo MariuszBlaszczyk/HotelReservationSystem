@@ -42,6 +42,7 @@ public class ReservationService {
         return reservationRepository.createNewReservation(room, guest, fromWithTime, toWithTime);
     }
 
+
     public void readAllReservationsFromFile() {
         reservationRepository.readAll();
     }

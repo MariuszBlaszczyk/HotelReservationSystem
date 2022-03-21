@@ -1,13 +1,13 @@
 package com.app.ui.gui;
 
-//tworzymy klasę, która ułatwi nam wybieranie gościa
+
 public class GuestSelectionItem {
 
     private String firstName;
     private String lasstName;
     private int id;
 
-    //tworzymy konstruktor
+
     public GuestSelectionItem(String firstName, String lasstName, int id) {
         this.firstName = firstName;
         this.lasstName = lasstName;
@@ -15,7 +15,7 @@ public class GuestSelectionItem {
     }
 
 
-    //tworzymy konstruktor
+
     public String getFirstName() {
         return firstName;
     }
@@ -28,7 +28,7 @@ public class GuestSelectionItem {
         return id;
     }
 
-    //tworzymy toString do poprawnego wyświetlania
+
     @Override
     public String toString() {
         return String.format("%s %s", this.firstName, this.lasstName);
