@@ -24,7 +24,7 @@ public class AddNewReservationScene {
     private final Scene mainScene;
     private final RoomService roomService = ObjectPool.getRoomService();
     private final GuestService guestService = ObjectPool.getGuestService();
-    private final ReservationService reservationService = ObjectPool.getReservationService();//importujemy ReservationService
+    private final ReservationService reservationService = ObjectPool.getReservationService();
 
     public AddNewReservationScene(Stage modalStage, TableView<ReservationDTO> tableView) {
 
@@ -48,18 +48,14 @@ public class AddNewReservationScene {
 
         List<RoomSelectionItem> roomSelectionItems = new ArrayList<>();
 
-        allRoomsAsDTO.forEach(roomDTO -> {
-            roomSelectionItems.add(new RoomSelectionItem(roomDTO.getNumber(), roomDTO.getId()));
-        });
+        allRoomsAsDTO.forEach(roomDTO -> roomSelectionItems.add(new RoomSelectionItem(roomDTO.getNumber(), roomDTO.getId())));
 
 
         List<GuestDTO> allGuestsAsDto = this.guestService.getGuestsAsDTO();
 
         List<GuestSelectionItem> guestSelectionItems = new ArrayList<>();
 
-        allGuestsAsDto.forEach(guestDTO -> {
-            guestSelectionItems.add(new GuestSelectionItem(guestDTO.getFirstName(), guestDTO.getLastName(), guestDTO.getId()));
-        });
+        allGuestsAsDto.forEach(guestDTO -> guestSelectionItems.add(new GuestSelectionItem(guestDTO.getFirstName(), guestDTO.getLastName(), guestDTO.getId())));
 
 
         Label roomLabel = new Label("Room: ");
@@ -77,32 +73,32 @@ public class AddNewReservationScene {
         gridPane.add(guestLabel, 0, 3);
         gridPane.add(guestField, 1, 3);
 
-        Button button = new Button("Create reservation"); // dodajemy guzik
+        Button button = new Button("Create reservation");
 
         button.setOnAction(actionEvent -> {
-            //wypisujemy dane do pobrania
-            LocalDate from = fromDateField.getValue();//czas od
-            LocalDate to = toDateField.getValue();//czas do
-            int roomId = roomField.getValue().getId();//id pokoju
-            int guestId = guestField.getValue().getId();//id gościa
+
+            LocalDate from = fromDateField.getValue();
+            LocalDate to = toDateField.getValue();
+            int roomId = roomField.getValue().getId();
+            int guestId = guestField.getValue().getId();
 
 
-            try {//musimy obsłużyć błąd podawania daty wcześniejszej jako drugiej
-                this.reservationService.createNewReservation(from, to, roomId, guestId);//tworzymy rezerwację
+            try {
+                this.reservationService.createNewReservation(from, to, roomId, guestId);
 
-                tableView.getItems().clear();//czyścimy
-                tableView.getItems().addAll(this.reservationService.getReservationsAsDTO());//pobieramy utworzone rezerwacje
-                modalStage.close();//zamykamy scenę
+                tableView.getItems().clear();
+                tableView.getItems().addAll(this.reservationService.getReservationsAsDTO());
+                modalStage.close();
             } catch (IllegalArgumentException e) {
                 Label error = new Label("Incorrect booking dates");
-                error.setTextFill(Color.RED);//ustawiamy czerwony kolor tekstu
+                error.setTextFill(Color.RED);
                 gridPane.add(error, 0, 5);
             }
 
 
         });
 
-        gridPane.add(button, 1, 4);//dodajemy guzik do gridPane
+        gridPane.add(button, 1, 4);
 
         this.mainScene = new Scene(gridPane, 740, 580);
 
