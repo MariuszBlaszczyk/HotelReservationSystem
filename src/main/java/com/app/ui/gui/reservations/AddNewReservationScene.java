@@ -1,4 +1,4 @@
-package com.app.ui.gui;
+package com.app.ui.gui.reservations;
 
 import com.app.domain.ObjectPool;
 import com.app.domain.guest.GuestService;

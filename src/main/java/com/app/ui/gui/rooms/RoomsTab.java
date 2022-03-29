@@ -1,12 +1,10 @@
-package com.app.ui.gui;
+package com.app.ui.gui.rooms;
 
 import com.app.domain.ObjectPool;
 import com.app.domain.room.RoomService;
 import com.app.domain.room.dto.RoomDTO;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -17,6 +15,7 @@ import java.util.List;
 public class RoomsTab {
 
     private final Tab roomTab;
+    private final RoomService roomService = ObjectPool.getRoomService();
 
     public RoomsTab(Stage primaryStage) {
 
@@ -62,7 +61,32 @@ public class RoomsTab {
         TableColumn<RoomDTO, String> bedsTypesColumn = new TableColumn<>("Bed types");
         bedsTypesColumn.setCellValueFactory(new PropertyValueFactory<>("beds"));
 
-        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsTypesColumn);
+
+        TableColumn<RoomDTO, RoomDTO> deleteColumn = new TableColumn<>("Delete");
+        deleteColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
+
+
+        deleteColumn.setCellFactory(param -> new TableCell<>() {
+
+            final Button deleteButton = new Button("Delete");
+
+            @Override
+            protected void updateItem(RoomDTO value, boolean empty) {
+                super.updateItem(value, empty);
+
+                if (value == null) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                    deleteButton.setOnAction(actionEvent -> {
+                        roomService.removeRoomFromList(value.getId());
+                        tableView.getItems().remove(value);
+                    });
+                }
+            }
+        });
+
+        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsTypesColumn, deleteColumn);
 
         RoomService roomService = ObjectPool.getRoomService();
         List<RoomDTO> allAsDTO = roomService.getAllAsDTO();

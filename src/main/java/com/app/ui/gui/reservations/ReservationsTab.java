@@ -1,8 +1,9 @@
-package com.app.ui.gui;
+package com.app.ui.gui.reservations;
 
 import com.app.domain.ObjectPool;
 import com.app.domain.reservation.ReservationService;
 import com.app.domain.reservation.dto.ReservationDTO;
+import com.app.ui.gui.reservations.AddNewReservationScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;

@@ -1,5 +1,8 @@
 package com.app.ui.gui;
 
+import com.app.ui.gui.guests.GuestsTab;
+import com.app.ui.gui.reservations.ReservationsTab;
+import com.app.ui.gui.rooms.RoomsTab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 

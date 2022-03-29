@@ -1,4 +1,4 @@
-package com.app.ui.gui;
+package com.app.ui.gui.reservations;
 
 
 public class GuestSelectionItem {

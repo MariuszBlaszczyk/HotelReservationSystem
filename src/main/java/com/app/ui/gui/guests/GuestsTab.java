@@ -1,8 +1,9 @@
-package com.app.ui.gui;
+package com.app.ui.gui.guests;
 
 import com.app.domain.ObjectPool;
 import com.app.domain.guest.GuestService;
 import com.app.domain.guest.dto.GuestDTO;
+import com.app.ui.gui.guests.AddNewGuestScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;

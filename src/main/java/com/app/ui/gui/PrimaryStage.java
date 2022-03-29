@@ -14,7 +14,7 @@ public class PrimaryStage {
 
         MainTabView mainTabView = new MainTabView(primaryStage);
 
-        Scene scene = new Scene(mainTabView.getMainTabs(), 740, 580);
+        Scene scene = new Scene(mainTabView.getMainTabs(), 1040, 580);
 
         scene
                 .getStylesheets()
