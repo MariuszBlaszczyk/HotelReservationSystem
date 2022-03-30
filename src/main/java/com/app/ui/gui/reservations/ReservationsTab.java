@@ -3,11 +3,8 @@ package com.app.ui.gui.reservations;
 import com.app.domain.ObjectPool;
 import com.app.domain.reservation.ReservationService;
 import com.app.domain.reservation.dto.ReservationDTO;
-import com.app.ui.gui.reservations.AddNewReservationScene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -18,6 +15,7 @@ import java.time.LocalDateTime;
 public class ReservationsTab {
 
     private final Tab reservationTab;
+    private final ReservationService reservationService = ObjectPool.getReservationService();
 
     public ReservationsTab(Stage primaryStage) {
         TableView<ReservationDTO> tableView = getReservationDTOTableView();
@@ -57,11 +55,35 @@ public class ReservationsTab {
         TableColumn<ReservationDTO, String> guestNameColumn = new TableColumn<>("Guest name");
         guestNameColumn.setCellValueFactory(new PropertyValueFactory<>("guestName"));
 
-        ReservationService reservationService = ObjectPool.getReservationService();
+        TableColumn<ReservationDTO, ReservationDTO> deleteColumn = new TableColumn<>("Delete");
+        deleteColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
+
+
+        deleteColumn.setCellFactory(param -> new TableCell<>() {
+
+            final Button deleteButton = new Button("Delete");
+
+            @Override
+            protected void updateItem(ReservationDTO value, boolean empty) {
+                super.updateItem(value, empty);
+
+                if (value == null) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                    deleteButton.setOnAction(actionEvent -> {
+                        reservationService.removeReservationFromList(value.getId());
+                        tableView.getItems().remove(value);
+                    });
+                }
+            }
+        });
+
+
         tableView.getItems().addAll(reservationService.getReservationsAsDTO());
 
 
-        tableView.getColumns().addAll(fromColumn, toColumn, roomNumberColumn, guestNameColumn);
+        tableView.getColumns().addAll(fromColumn, toColumn, roomNumberColumn, guestNameColumn, deleteColumn);
         return tableView;
     }
 
