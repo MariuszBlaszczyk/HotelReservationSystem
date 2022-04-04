@@ -55,7 +55,7 @@ public class ReservationsTab {
         TableColumn<ReservationDTO, String> guestNameColumn = new TableColumn<>("Guest name");
         guestNameColumn.setCellValueFactory(new PropertyValueFactory<>("guestName"));
 
-        TableColumn<ReservationDTO, ReservationDTO> deleteColumn = new TableColumn<>("Delete");
+        TableColumn<ReservationDTO, ReservationDTO> deleteColumn = new TableColumn<>();
         deleteColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
 
 
