@@ -258,7 +258,7 @@ public class TextUI {
             System.out.println("Room number: ");
             int numberRoom = input.nextInt();
             int[] bedType = chooseBedType(input);
-            roomService.editGuestFromList(roomId, numberRoom, bedType);
+            roomService.editRoomFromList(roomId, numberRoom, bedType);
         } catch (InputMismatchException e) {
             throw new OnlyNumberException("Use numbers when creating new room.");
         }

@@ -6,6 +6,7 @@ import com.app.domain.room.dto.RoomDTO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -16,11 +17,12 @@ public class RoomsTab {
 
     private final Tab roomTab;
     private final RoomService roomService = ObjectPool.getRoomService();
+    private final Stage primaryStage;
 
     public RoomsTab(Stage primaryStage) {
 
         TableView<RoomDTO> tableView = getRoomDTOTableView();
-
+        this.primaryStage = primaryStage;
         Button button = new Button("Create new");
 
         button.setOnAction(actionEvent -> {
@@ -30,7 +32,7 @@ public class RoomsTab {
 
             stage.setScene(new AddNewRoomScene(stage, tableView).getMainScene());
 
-            stage.initOwner(primaryStage);
+            stage.initOwner(this.primaryStage);
             stage.setTitle("Add new room");
             stage.showAndWait();
         });
@@ -62,13 +64,16 @@ public class RoomsTab {
         bedsTypesColumn.setCellValueFactory(new PropertyValueFactory<>("beds"));
 
 
-        TableColumn<RoomDTO, RoomDTO> deleteColumn = new TableColumn<>("Delete");
+        TableColumn<RoomDTO, RoomDTO> deleteColumn = new TableColumn<>();
         deleteColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
 
 
         deleteColumn.setCellFactory(param -> new TableCell<>() {
 
             final Button deleteButton = new Button("Delete");
+            final Button editButton = new Button("Edit");
+            final HBox hBox = new HBox(deleteButton, editButton);
+
 
             @Override
             protected void updateItem(RoomDTO value, boolean empty) {
@@ -77,10 +82,21 @@ public class RoomsTab {
                 if (value == null) {
                     setGraphic(null);
                 } else {
-                    setGraphic(deleteButton);
+                    setGraphic(hBox);
                     deleteButton.setOnAction(actionEvent -> {
                         roomService.removeRoomFromList(value.getId());
                         tableView.getItems().remove(value);
+                    });
+                    editButton.setOnAction(actionEvent -> {
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.WINDOW_MODAL);
+
+
+                        stage.setScene(new EditRoomScene(stage, tableView, value).getMainScene());
+
+                        stage.initOwner(primaryStage);
+                        stage.setTitle("Add new room");
+                        stage.showAndWait();
                     });
                 }
             }

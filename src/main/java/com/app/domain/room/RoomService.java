@@ -21,23 +21,13 @@ public class RoomService {
     }
 
     public Room createNewRoom(int roomNumber, int[] bedTypesOptions) {
-        BedType[] bedTypes = new BedType[bedTypesOptions.length];
-        for (int i = 0; i < bedTypes.length; i++) {
-            bedTypes[i] = TextUI.chooseBedTypeFromNumberValue(bedTypesOptions[i]);
-        }
+        BedType[] bedTypes = getBedTypes(bedTypesOptions);
         return roomRepository.createNewRoom(roomNumber, bedTypes);
     }
 
 
     public Room createNewRoom(int roomNumber, List<String> bedTypeAsString) {
-        BedType[] bedTypes = new BedType[bedTypeAsString.size()];
-
-        for (int i = 0; i < bedTypeAsString.size(); i++) {
-
-            bedTypes[i] = TextUI.chooseBedTypeFromEnum(bedTypeAsString.get(i));
-
-        }
-
+        BedType[] bedTypes = getBedTypes(bedTypeAsString);
         return roomRepository.createNewRoom(roomNumber, bedTypes);
     }
 
@@ -55,12 +45,30 @@ public class RoomService {
     }
 
 
-    public void editGuestFromList(int roomId, int numberRoom, int[] bedTypesOptions) {
+    public void editRoomFromList(int roomId, int numberRoom, int[] bedTypesOptions) {
+        BedType[] bedTypes = getBedTypes(bedTypesOptions);
+        roomRepository.edit(roomId, numberRoom, bedTypes);
+    }
+
+    private BedType[] getBedTypes(int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
         for (int i = 0; i < bedTypes.length; i++) {
             bedTypes[i] = TextUI.chooseBedTypeFromNumberValue(bedTypesOptions[i]);
         }
-        roomRepository.edit(roomId, numberRoom, bedTypes);
+        return bedTypes;
+    }
+
+    public void editRoomFromList(int id, int number, List<String> bedTypeAsString) {
+        BedType[] bedTypes = getBedTypes(bedTypeAsString);
+        this.roomRepository.edit(id, number, bedTypes);
+    }
+
+    private BedType[] getBedTypes(List<String> bedTypeAsString) {
+        BedType[] bedTypes = new BedType[bedTypeAsString.size()];
+        for (int i = 0; i < bedTypeAsString.size(); i++) {
+            bedTypes[i] = TextUI.chooseBedTypeFromEnum(bedTypeAsString.get(i));
+        }
+        return bedTypes;
     }
 
     public void removeRoomFromList(int roomId) {

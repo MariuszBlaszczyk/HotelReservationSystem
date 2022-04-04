@@ -85,7 +85,13 @@ public class RoomRepository {
                 String[] bedTypesAsString = bedTypesData.split("#");
                 BedType[] bedTypes = new BedType[bedTypesAsString.length];
                 for (int i = 0; i < bedTypes.length; i++) {
-                    bedTypes[i] = BedType.valueOf(bedTypesAsString[i]);
+                    switch (bedTypesAsString[i]) {
+                        case Utils.SINGLE_BED -> bedTypes[i] = BedType.SINGLE;
+                        case Utils.DOUBLE_BED -> bedTypes[i] = BedType.DOUBLE;
+                        case Utils.KINGSIZE_BED -> bedTypes[i] = BedType.KINGSIZE;
+                    }
+
+
                 }
                 addExistingGuest(id, roomNumber, bedTypes);
             }
