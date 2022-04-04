@@ -6,6 +6,7 @@ import com.app.domain.guest.dto.GuestDTO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,12 +15,13 @@ public class GuestsTab {
 
     private final Tab guestTab;
     private final GuestService guestService = ObjectPool.getGuestService();
+    private final Stage primaryStage;
 
 
     public GuestsTab(Stage primaryStage) {
 
         TableView<GuestDTO> tableView = getGuestDTOTableView();
-
+        this.primaryStage = primaryStage;
 
         Button button = new Button("Add new guest");
 
@@ -57,13 +59,15 @@ public class GuestsTab {
         TableColumn<GuestDTO, String> genderColumn = new TableColumn<>("Gender");
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
-        TableColumn<GuestDTO,GuestDTO> deleteColumn = new TableColumn<>("Delete");
-        deleteColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
+        TableColumn<GuestDTO, GuestDTO> actionColumn = new TableColumn<>();
+        actionColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
 
 
-        deleteColumn.setCellFactory(param -> new TableCell<>() {
+        actionColumn.setCellFactory(param -> new TableCell<>() {
 
             final Button deleteButton = new Button("Delete");
+            final Button editButton = new Button("Edit");
+            final HBox hBox = new HBox(deleteButton, editButton);
 
             @Override
             protected void updateItem(GuestDTO value, boolean empty) {
@@ -72,10 +76,18 @@ public class GuestsTab {
                 if (value == null) {
                     setGraphic(null);
                 } else {
-                    setGraphic(deleteButton);
+                    setGraphic(hBox);
                     deleteButton.setOnAction(actionEvent -> {
                         guestService.removeGuestFromList(value.getId());
                         tableView.getItems().remove(value);
+                    });
+                    editButton.setOnAction(actionEvent -> {
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.WINDOW_MODAL);
+                        stage.setScene(new EditGuestScene(stage, tableView, value).getMainScene());
+                        stage.initOwner(primaryStage);
+                        stage.setTitle("Edit guest");
+                        stage.showAndWait();
                     });
                 }
             }
@@ -84,7 +96,7 @@ public class GuestsTab {
 
         tableView.getItems().addAll(guestService.getGuestsAsDTO());
 
-        tableView.getColumns().addAll(firstNameColumn, lastNameColumn, ageColumn, genderColumn,deleteColumn);
+        tableView.getColumns().addAll(firstNameColumn, lastNameColumn, ageColumn, genderColumn, actionColumn);
         return tableView;
     }
 
