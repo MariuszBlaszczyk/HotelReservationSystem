@@ -9,7 +9,7 @@
     <version>${revision}</version>
 
     <properties>
-        <revision>1.0</revision>
+        <revision>1.0.0</revision>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -20,12 +20,12 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>16</version>
+            <version>18</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>16</version>
+            <version>18</version>
         </dependency>
     </dependencies>
 
@@ -46,6 +46,48 @@
                 <configuration>
                     <mainClass>com.app.App</mainClass>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>Creating installer</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <executable>jpackage</executable>
+                            <arguments>
+                                <argument>--input</argument>
+                                <argument>target/</argument>
+
+                                <argument>--name</argument>
+                                <argument>HotelReservation</argument>
+
+                                <argument>--main-jar</argument>
+                                <argument>HotelReservationSystem-1.0.0.jar</argument>
+
+                                <argument>--main-class</argument>
+                                <argument>com.app.App</argument>
+
+                                <argument>--type</argument>
+                                <argument>msi</argument>
+
+                                <argument>--win-dir-chooser</argument>
+                                <argument>--verbose</argument>
+
+                                <argument>--module-path</argument>
+                                <argument>F:/#Work/javafx-jmods-17.0.2</argument>
+
+                                <argument>--add-modules</argument>
+                                <argument>java.base,javafx.controls,javafx.web,javafx.graphics,javafx.media,java.desktop,javafx.fxml,jdk.charsets</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
