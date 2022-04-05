@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private static final TextUI TEXT_UI = new TextUI();
+
     private static final GuestService GUEST_SERVICE = ObjectPool.getGuestService();
     private static final RoomService ROOM_SERVICE = ObjectPool.getRoomService();
     private static final ReservationService RESERVATION_SERVICE = ObjectPool.getReservationService();
