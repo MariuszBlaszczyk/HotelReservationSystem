@@ -1,6 +1,6 @@
 package com.app.ui.gui;
 
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -9,8 +9,8 @@ import java.util.Objects;
 public class PrimaryStage {
 
     public void initialize(Stage primaryStage) {
-        String hotelName = Utils.HOTEL_NAME;
-        int systemVersion = Utils.SYSTEM_VERSION;
+        String hotelName = SystemUtils.HOTEL_NAME;
+        String systemVersion = SystemUtils.SYSTEM_VERSION;
 
         MainTabView mainTabView = new MainTabView(primaryStage);
 
@@ -22,7 +22,7 @@ public class PrimaryStage {
                                 .getClassLoader()
                                 .getResource("hotelReservation.css"))
                         .toExternalForm());
-        String title = String.format("Hotel reservation system %s (%d)", hotelName, systemVersion);
+        String title = String.format("Hotel reservation system %s (%s)", hotelName, systemVersion);
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
         primaryStage.show();

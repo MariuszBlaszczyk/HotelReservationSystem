@@ -3,7 +3,7 @@ package com.app.ui.gui.rooms;
 import com.app.domain.ObjectPool;
 import com.app.domain.room.RoomService;
 import com.app.domain.room.dto.RoomDTO;
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -114,8 +114,8 @@ public class EditRoomScene {
 
     private ComboBox<String> getBedTypeFieldCombobox() {
         ComboBox<String> bedTypeField = new ComboBox<>();
-        bedTypeField.getItems().addAll(Utils.SINGLE_BED, Utils.DOUBLE_BED, Utils.KINGSIZE_BED);
-        bedTypeField.setValue(Utils.SINGLE_BED);
+        bedTypeField.getItems().addAll(SystemUtils.SINGLE_BED, SystemUtils.DOUBLE_BED, SystemUtils.KINGSIZE_BED);
+        bedTypeField.setValue(SystemUtils.SINGLE_BED);
         this.comboBoxes.add(bedTypeField);
         return bedTypeField;
     }

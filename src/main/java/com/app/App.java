@@ -6,7 +6,7 @@ import com.app.domain.reservation.ReservationService;
 import com.app.domain.room.RoomService;
 import com.app.ui.gui.PrimaryStage;
 import com.app.ui.text.TextUI;
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -20,14 +20,15 @@ public class App extends Application {
 
     public static void main(String[] args) {
 
-        Utils.createDataDirectory();
+        SystemUtils systemUtils = new SystemUtils();
+        SystemUtils.createDataDirectory();
         System.out.println("Loading data in progress...");
         GUEST_SERVICE.readAllGuestsFromFile();
         ROOM_SERVICE.readAllRoomsFromFile();
         RESERVATION_SERVICE.readAllReservationsFromFile();
 
 
-       Application.launch(args);
+        Application.launch(args);
 
 //        TEXT_UI.showSystemInfo();
 //        TEXT_UI.showMainMenu();

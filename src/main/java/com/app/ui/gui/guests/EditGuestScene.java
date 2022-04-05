@@ -4,7 +4,7 @@ import com.app.domain.ObjectPool;
 import com.app.domain.guest.Gender;
 import com.app.domain.guest.GuestService;
 import com.app.domain.guest.dto.GuestDTO;
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -63,7 +63,7 @@ public class EditGuestScene {
 
         Label genderLabel = new Label("Gender: ");
         ComboBox<String> genderField = new ComboBox<>();
-        genderField.getItems().addAll(Utils.FEMALE, Utils.MALE);
+        genderField.getItems().addAll(SystemUtils.FEMALE, SystemUtils.MALE);
         genderField.setValue(guestDTO.getGender());
 
         gridPane.add(genderLabel, 0, 3);

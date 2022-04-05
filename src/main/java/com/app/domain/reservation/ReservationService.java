@@ -6,7 +6,7 @@ import com.app.domain.guest.GuestService;
 import com.app.domain.reservation.dto.ReservationDTO;
 import com.app.domain.room.Room;
 import com.app.domain.room.RoomService;
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,8 +32,8 @@ public class ReservationService {
         Room room = roomService.getRoomById(roomId);
         Guest guest = guestService.getGuestById(guestId);
 
-        LocalDateTime fromWithTime = from.atTime(Utils.HOTEL_NIGHT_START_HOUR, Utils.HOTEL_NIGHT_START_MINUTE);
-        LocalDateTime toWithTime = to.atTime(Utils.HOTEL_NIGHT_END_HOUR, Utils.HOTEL_NIGHT_END_MINUTE);
+        LocalDateTime fromWithTime = from.atTime(SystemUtils.HOTEL_NIGHT_START_HOUR, SystemUtils.HOTEL_NIGHT_START_MINUTE);
+        LocalDateTime toWithTime = to.atTime(SystemUtils.HOTEL_NIGHT_END_HOUR, SystemUtils.HOTEL_NIGHT_END_MINUTE);
 
         if (toWithTime.isBefore(fromWithTime)) {
             throw new IllegalArgumentException();
@@ -59,8 +59,8 @@ public class ReservationService {
         Room room = roomService.getRoomById(roomId);
         Guest guest = guestService.getGuestById(guestId);
 
-        LocalDateTime fromWithTime = from.atTime(Utils.HOTEL_NIGHT_START_HOUR, Utils.HOTEL_NIGHT_START_MINUTE);
-        LocalDateTime toWithTime = to.atTime(Utils.HOTEL_NIGHT_END_HOUR, Utils.HOTEL_NIGHT_END_MINUTE);
+        LocalDateTime fromWithTime = from.atTime(SystemUtils.HOTEL_NIGHT_START_HOUR, SystemUtils.HOTEL_NIGHT_START_MINUTE);
+        LocalDateTime toWithTime = to.atTime(SystemUtils.HOTEL_NIGHT_END_HOUR, SystemUtils.HOTEL_NIGHT_END_MINUTE);
 
         if (toWithTime.isBefore(fromWithTime)) {
             throw new IllegalArgumentException();

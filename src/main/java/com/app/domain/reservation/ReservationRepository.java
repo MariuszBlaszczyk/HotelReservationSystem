@@ -7,7 +7,7 @@ import com.app.domain.guest.GuestService;
 import com.app.domain.room.Room;
 import com.app.domain.room.RoomService;
 import com.app.exceptions.PersistenceToFileException;
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -58,7 +58,7 @@ public class ReservationRepository {
 
     public void readAll() {
         String name = "reservations.csv";
-        Path file = Paths.get(Utils.DATA_DIRECTORY.toString(), name);
+        Path file = Paths.get(SystemUtils.DATA_DIRECTORY.toString(), name);
         if (!Files.exists(file)) {
             return;
         }
@@ -87,7 +87,7 @@ public class ReservationRepository {
 
     public void writeAll() {
         String name = "reservations.csv";
-        Path file = Paths.get(Utils.DATA_DIRECTORY.toString(), name);
+        Path file = Paths.get(SystemUtils.DATA_DIRECTORY.toString(), name);
         StringBuilder sb = new StringBuilder();
         for (Reservation reservation : reservations) {
             sb.append(reservation.toCSV());

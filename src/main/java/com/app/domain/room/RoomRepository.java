@@ -1,7 +1,7 @@
 package com.app.domain.room;
 
 import com.app.exceptions.PersistenceToFileException;
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -65,7 +65,7 @@ public class RoomRepository {
 
     void readAllRoomsFromFile() {
         String filename = "rooms.csv";
-        Path filepath = Paths.get(Utils.DATA_DIRECTORY.toString(), filename);
+        Path filepath = Paths.get(SystemUtils.DATA_DIRECTORY.toString(), filename);
 
         if (!Files.exists(filepath)) {
             return;
@@ -86,9 +86,9 @@ public class RoomRepository {
                 BedType[] bedTypes = new BedType[bedTypesAsString.length];
                 for (int i = 0; i < bedTypes.length; i++) {
                     switch (bedTypesAsString[i]) {
-                        case Utils.SINGLE_BED -> bedTypes[i] = BedType.SINGLE;
-                        case Utils.DOUBLE_BED -> bedTypes[i] = BedType.DOUBLE;
-                        case Utils.KINGSIZE_BED -> bedTypes[i] = BedType.KINGSIZE;
+                        case SystemUtils.SINGLE_BED -> bedTypes[i] = BedType.SINGLE;
+                        case SystemUtils.DOUBLE_BED -> bedTypes[i] = BedType.DOUBLE;
+                        case SystemUtils.KINGSIZE_BED -> bedTypes[i] = BedType.KINGSIZE;
                     }
 
 

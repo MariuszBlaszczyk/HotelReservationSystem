@@ -12,7 +12,7 @@ import com.app.domain.room.RoomService;
 import com.app.exceptions.OnlyNumberException;
 import com.app.exceptions.PersistenceToFileException;
 import com.app.exceptions.WrongOptionException;
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -27,11 +27,11 @@ public class TextUI {
 
     public void showSystemInfo() {
         System.out.print("Welcome to the reservation system for the ");
-        System.out.println(Utils.HOTEL_NAME);
+        System.out.println(SystemUtils.HOTEL_NAME);
         System.out.print("Current system version: ");
-        System.out.println(Utils.SYSTEM_VERSION);
+        System.out.println(SystemUtils.SYSTEM_VERSION);
         System.out.print("Development version: ");
-        System.out.println(Utils.IS_DEVELOPER_VERSION);
+        System.out.println(SystemUtils.IS_DEVELOPER_VERSION);
         System.out.println("\n=========================\n");
     }
 
@@ -287,10 +287,10 @@ public class TextUI {
     private void createReservation(Scanner input) {
         System.out.println("From when the reservation(DD.MM.YYYY):");
         String fromAsString = input.next();
-        LocalDate from = LocalDate.parse(fromAsString, Utils.DATE_TIME_FORMATTER);
+        LocalDate from = LocalDate.parse(fromAsString, SystemUtils.DATE_TIME_FORMATTER);
         System.out.println("Until when the reservation(DD.MM.YYYY):");
         String toAsString = input.next();
-        LocalDate to = LocalDate.parse(toAsString, Utils.DATE_TIME_FORMATTER);
+        LocalDate to = LocalDate.parse(toAsString, SystemUtils.DATE_TIME_FORMATTER);
         System.out.println("Please enter the room id");
         int roomId = input.nextInt();
         System.out.println("Please enter the guest id");
@@ -312,10 +312,10 @@ public class TextUI {
             int reservationId = input.nextInt();
             System.out.println("From when the reservation(DD.MM.YYYY):");
             String fromAsString = input.next();
-            LocalDate from = LocalDate.parse(fromAsString, Utils.DATE_TIME_FORMATTER);
+            LocalDate from = LocalDate.parse(fromAsString, SystemUtils.DATE_TIME_FORMATTER);
             System.out.println("Until when the reservation(DD.MM.YYYY):");
             String toAsString = input.next();
-            LocalDate to = LocalDate.parse(toAsString, Utils.DATE_TIME_FORMATTER);
+            LocalDate to = LocalDate.parse(toAsString, SystemUtils.DATE_TIME_FORMATTER);
             System.out.println("Please enter the room id");
             int roomId = input.nextInt();
             System.out.println("Please enter the guest id");

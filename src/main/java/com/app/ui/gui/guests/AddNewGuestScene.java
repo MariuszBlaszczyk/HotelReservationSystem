@@ -3,7 +3,7 @@ package com.app.ui.gui.guests;
 import com.app.domain.ObjectPool;
 import com.app.domain.guest.GuestService;
 import com.app.domain.guest.dto.GuestDTO;
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -61,8 +61,8 @@ public class AddNewGuestScene {
 
         Label genderLabel = new Label("Gender: ");
         ComboBox<String> genderField = new ComboBox<>();
-        genderField.getItems().addAll(Utils.FEMALE, Utils.MALE);
-        genderField.setValue(Utils.FEMALE);
+        genderField.getItems().addAll(SystemUtils.FEMALE, SystemUtils.MALE);
+        genderField.setValue(SystemUtils.FEMALE);
 
         gridPane.add(genderLabel, 0, 3);
         gridPane.add(genderField, 1, 3);
@@ -75,7 +75,7 @@ public class AddNewGuestScene {
             int age = Integer.parseInt(ageTextField.getText());
             String gender = genderField.getValue();
 
-            boolean isMale = gender.equals(Utils.MALE);
+            boolean isMale = gender.equals(SystemUtils.MALE);
 
             this.guestService.createNewGuest(firstName, lastName, age, isMale);
 

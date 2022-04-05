@@ -1,7 +1,7 @@
 package com.app.domain.guest;
 
 import com.app.exceptions.PersistenceToFileException;
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -42,7 +42,7 @@ public class GuestRepository {
 
     void writeAllGuestsToFile() {
         String filename = "guests.csv";
-        Path filepath = Paths.get(Utils.DATA_DIRECTORY.toString(), filename);
+        Path filepath = Paths.get(SystemUtils.DATA_DIRECTORY.toString(), filename);
         StringBuilder sb = new StringBuilder();
         for (Guest guest : this.guests) {
             sb.append(guest.toCSV());
@@ -56,7 +56,7 @@ public class GuestRepository {
 
     void readAllGuestsFromFile() {
         String filename = "guests.csv";
-        Path filepath = Paths.get(Utils.DATA_DIRECTORY.toString(), filename);
+        Path filepath = Paths.get(SystemUtils.DATA_DIRECTORY.toString(), filename);
 
         if (!Files.exists(filepath)) {
             return;
@@ -72,7 +72,7 @@ public class GuestRepository {
                 int id = Integer.parseInt(guestData[0]);
                 int age = Integer.parseInt(guestData[3]);
                 Gender gender;
-                if (guestData[4].equals(Utils.MALE)) {
+                if (guestData[4].equals(SystemUtils.MALE)) {
                     gender = Gender.MALE;
                 } else {
                     gender = Gender.FEMALE;

@@ -9,7 +9,7 @@
     <version>${revision}</version>
 
     <properties>
-        <revision>1.0.0</revision>
+        <revision>1.0.1</revision>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -30,6 +30,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -83,7 +89,9 @@
                                 <argument>F:/#Work/javafx-jmods-17.0.2</argument>
 
                                 <argument>--add-modules</argument>
-                                <argument>java.base,javafx.controls,javafx.web,javafx.graphics,javafx.media,java.desktop,javafx.fxml,jdk.charsets</argument>
+                                <argument>
+                                    java.base,javafx.controls,javafx.web,javafx.graphics,javafx.media,java.desktop,javafx.fxml,jdk.charsets
+                                </argument>
                             </arguments>
                         </configuration>
                     </execution>

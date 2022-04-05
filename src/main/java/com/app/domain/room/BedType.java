@@ -1,12 +1,12 @@
 package com.app.domain.room;
 
-import com.app.utils.Utils;
+import com.app.utils.SystemUtils;
 
 
 public enum BedType {
-    SINGLE(1, 1, Utils.SINGLE_BED),
-    DOUBLE(2, 2, Utils.DOUBLE_BED),
-    KINGSIZE(3, 4, Utils.KINGSIZE_BED);
+    SINGLE(1, 1, SystemUtils.SINGLE_BED),
+    DOUBLE(2, 2, SystemUtils.DOUBLE_BED),
+    KINGSIZE(3, 4, SystemUtils.KINGSIZE_BED);
 
     private final int value;
     private final int size;
