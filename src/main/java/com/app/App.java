@@ -23,6 +23,7 @@ public class App extends Application {
 
         SystemUtils systemUtils = new SystemUtils();
         SystemUtils.createDataDirectory();
+        systemUtils.createDatabaseConnection();
         System.out.println("Loading data in progress...");
         GUEST_SERVICE.readAllGuestsFromFile();
         ROOM_SERVICE.readAllRoomsFromFile();

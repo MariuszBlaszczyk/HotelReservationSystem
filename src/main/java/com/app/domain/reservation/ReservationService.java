@@ -28,7 +28,7 @@ public class ReservationService {
         return INSTANCE;
     }
 
-    public Reservation createNewReservation(LocalDate from, LocalDate to, int roomId, int guestId) throws IllegalArgumentException {
+    public Reservation createNewReservation(LocalDate from, LocalDate to, long roomId, long guestId) throws IllegalArgumentException {
         Room room = roomService.getRoomById(roomId);
         Guest guest = guestService.getGuestById(guestId);
 
@@ -51,11 +51,11 @@ public class ReservationService {
         reservationRepository.writeAll();
     }
 
-    public void removeReservationFromList(int reservationId) {
+    public void removeReservationFromList(long reservationId) {
         reservationRepository.remove(reservationId);
     }
 
-    public void editReservation(int reservationId, LocalDate from, LocalDate to, int roomId, int guestId) {
+    public void editReservation(long reservationId, LocalDate from, LocalDate to, long roomId, long guestId) {
         Room room = roomService.getRoomById(roomId);
         Guest guest = guestService.getGuestById(guestId);
 

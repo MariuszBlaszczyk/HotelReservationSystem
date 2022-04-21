@@ -6,7 +6,7 @@ import com.app.domain.room.Room;
 
 import java.time.LocalDateTime;
 
-public record Reservation(int id, Room room, Guest guest, LocalDateTime from,
+public record Reservation(long id, Room room, Guest guest, LocalDateTime from,
                           LocalDateTime to) {
 
 

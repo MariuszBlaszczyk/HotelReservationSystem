@@ -1,21 +1,8 @@
 package com.app.domain.room.dto;
 
-public class RoomDTO {
-    private final int id;
-    private final int number;
-    private final String beds;
-    private final int bedsCount;
-    private final int roomSize;
+public record RoomDTO(long id, int number, String beds, int bedsCount, int roomSize) {
 
-    public RoomDTO(int id, int number, String beds, int bedsCount, int roomSize) {
-        this.id = id;
-        this.number = number;
-        this.beds = beds;
-        this.bedsCount = bedsCount;
-        this.roomSize = roomSize;
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -31,7 +18,5 @@ public class RoomDTO {
         return bedsCount;
     }
 
-    public int getRoomSize() {
-        return roomSize;
-    }
+
 }

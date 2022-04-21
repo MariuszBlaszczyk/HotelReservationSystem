@@ -75,7 +75,6 @@ public class EditGuestScene {
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             int age = Integer.parseInt(ageTextField.getText());
-            String gender = genderField.getValue();
             int male = Gender.MALE.getValue();
 
 

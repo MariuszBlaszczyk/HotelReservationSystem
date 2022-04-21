@@ -4,6 +4,7 @@ import com.app.domain.guest.GuestRepository;
 import com.app.domain.guest.GuestService;
 import com.app.domain.reservation.ReservationRepository;
 import com.app.domain.reservation.ReservationService;
+import com.app.domain.room.RoomDatabaseRepository;
 import com.app.domain.room.RoomRepository;
 import com.app.domain.room.RoomService;
 
@@ -26,7 +27,8 @@ public class ObjectPool {
     }
 
     public static RoomRepository getRoomRepository() {
-        return RoomRepository.getInstance();
+//        return RoomFileRepository.getINSTANCE();
+        return RoomDatabaseRepository.getInstance();
     }
 
     public static ReservationService getReservationService() {

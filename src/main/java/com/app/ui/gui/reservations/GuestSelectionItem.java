@@ -1,36 +1,16 @@
 package com.app.ui.gui.reservations;
 
 
-public class GuestSelectionItem {
-
-    private String firstName;
-    private String lasstName;
-    private int id;
+public record GuestSelectionItem(String firstName, String lastName, long id) {
 
 
-    public GuestSelectionItem(String firstName, String lasstName, int id) {
-        this.firstName = firstName;
-        this.lasstName = lasstName;
-        this.id = id;
-    }
-
-
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLasstName() {
-        return lasstName;
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
 
     @Override
     public String toString() {
-        return String.format("%s %s", this.firstName, this.lasstName);
+        return String.format("%s %s", this.firstName, this.lastName);
     }
 }

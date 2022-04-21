@@ -64,11 +64,11 @@ public class RoomsTab {
         bedsTypesColumn.setCellValueFactory(new PropertyValueFactory<>("beds"));
 
 
-        TableColumn<RoomDTO, RoomDTO> actiomColumn = new TableColumn<>();
-        actiomColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
+        TableColumn<RoomDTO, RoomDTO> actionColumn = new TableColumn<>();
+        actionColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
 
 
-        actiomColumn.setCellFactory(param -> new TableCell<>() {
+        actionColumn.setCellFactory(param -> new TableCell<>() {
 
             final Button deleteButton = new Button("Delete");
             final Button editButton = new Button("Edit");
@@ -99,7 +99,7 @@ public class RoomsTab {
             }
         });
 
-        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsTypesColumn, actiomColumn);
+        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsTypesColumn, actionColumn);
 
         RoomService roomService = ObjectPool.getRoomService();
         List<RoomDTO> allAsDTO = roomService.getAllAsDTO();

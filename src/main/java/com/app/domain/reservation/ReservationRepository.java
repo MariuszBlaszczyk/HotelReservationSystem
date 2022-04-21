@@ -45,8 +45,8 @@ public class ReservationRepository {
     }
 
 
-    private int findNewIdForReservation() {
-        int max = 0;
+    private long findNewIdForReservation() {
+        long max = 0;
         for (Reservation reservation : reservations) {
             if (reservation.id() > max) {
                 max = reservation.id();
@@ -70,7 +70,7 @@ public class ReservationRepository {
                 if (reservationData[0] == null || reservationData[0].trim().isEmpty()) {
                     continue;
                 }
-                int id = Integer.parseInt(reservationData[0]);
+                long id = Long.parseLong(reservationData[0]);
                 int roomId = Integer.parseInt(reservationData[1]);
                 int guestId = Integer.parseInt(reservationData[2]);
                 String fromAsString = reservationData[3];
@@ -100,13 +100,13 @@ public class ReservationRepository {
     }
 
 
-    private void addExistingReservation(int id, Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
+    private void addExistingReservation(long id, Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
         Reservation reservation = new Reservation(id, room, guest, from, to);
         reservations.add(reservation);
     }
 
 
-    public void remove(int reservationId) {
+    public void remove(long reservationId) {
         int reservationToBeRemoved = -1;
         for (int i = 0; i < reservations.size(); i++) {
             if (reservations.get(i).id() == reservationId) {
@@ -120,7 +120,7 @@ public class ReservationRepository {
     }
 
 
-    public void edit(int reservationId, Room room, Guest guest, LocalDateTime fromWithTime, LocalDateTime toWithTime) {
+    public void edit(long reservationId, Room room, Guest guest, LocalDateTime fromWithTime, LocalDateTime toWithTime) {
         remove(reservationId);
         addExistingReservation(reservationId, room, guest, fromWithTime, toWithTime);
     }

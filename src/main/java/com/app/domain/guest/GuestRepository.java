@@ -30,7 +30,7 @@ public class GuestRepository {
         return newGuest;
     }
 
-    void addExistingGuest(int id, String firstName, String lastName, int age, Gender gender) {
+    void addExistingGuest(long id, String firstName, String lastName, int age, Gender gender) {
         Guest newGuest = new Guest(id, firstName, lastName, age, gender);
         guests.add(newGuest);
     }
@@ -69,7 +69,7 @@ public class GuestRepository {
                 if (guestData[0] == null || guestData[0].trim().isEmpty()) {
                     continue;
                 }
-                int id = Integer.parseInt(guestData[0]);
+                long id = Long.parseLong(guestData[0]);
                 int age = Integer.parseInt(guestData[3]);
                 Gender gender;
                 if (guestData[4].equals(SystemUtils.MALE)) {
@@ -86,8 +86,8 @@ public class GuestRepository {
         }
     }
 
-    private int findNewIdForTheGuest() {
-        int max = 0;
+    private long findNewIdForTheGuest() {
+        long max = 0;
         for (Guest guest : this.guests) {
             if (guest.id() > max) {
                 max = guest.id();
@@ -96,7 +96,7 @@ public class GuestRepository {
         return max + 1;
     }
 
-    public void remove(int guestId) {
+    public void remove(long guestId) {
         int guestToBeRemoved = -1;
         for (int i = 0; i < guests.size(); i++) {
             if (guests.get(i).id() == guestId) {
@@ -109,12 +109,12 @@ public class GuestRepository {
         }
     }
 
-    public void edit(int guestId, String firstName, String lastName, int age, Gender gender) {
+    public void edit(long guestId, String firstName, String lastName, int age, Gender gender) {
         remove(guestId);
         addExistingGuest(guestId, firstName, lastName, age, gender);
     }
 
-    public Guest getById(int guestId) {
+    public Guest getById(long guestId) {
         for (Guest guest : guests) {
             if (guest.id() == guestId) {
                 return guest;

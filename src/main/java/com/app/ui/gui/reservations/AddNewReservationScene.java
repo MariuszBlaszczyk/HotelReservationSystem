@@ -22,8 +22,6 @@ import java.util.Objects;
 public class AddNewReservationScene {
 
     private final Scene mainScene;
-    private final RoomService roomService = ObjectPool.getRoomService();
-    private final GuestService guestService = ObjectPool.getGuestService();
     private final ReservationService reservationService = ObjectPool.getReservationService();
 
     public AddNewReservationScene(Stage modalStage, TableView<ReservationDTO> tableView) {
@@ -44,14 +42,16 @@ public class AddNewReservationScene {
         gridPane.add(toDateField, 1, 1);
 
 
-        List<RoomDTO> allRoomsAsDTO = this.roomService.getAllAsDTO();
+        RoomService roomService = ObjectPool.getRoomService();
+        List<RoomDTO> allRoomsAsDTO = roomService.getAllAsDTO();
 
         List<RoomSelectionItem> roomSelectionItems = new ArrayList<>();
 
         allRoomsAsDTO.forEach(roomDTO -> roomSelectionItems.add(new RoomSelectionItem(roomDTO.getNumber(), roomDTO.getId())));
 
 
-        List<GuestDTO> allGuestsAsDto = this.guestService.getGuestsAsDTO();
+        GuestService guestService = ObjectPool.getGuestService();
+        List<GuestDTO> allGuestsAsDto = guestService.getGuestsAsDTO();
 
         List<GuestSelectionItem> guestSelectionItems = new ArrayList<>();
 
@@ -79,8 +79,8 @@ public class AddNewReservationScene {
 
             LocalDate from = fromDateField.getValue();
             LocalDate to = toDateField.getValue();
-            int roomId = roomField.getValue().getId();
-            int guestId = guestField.getValue().getId();
+            long roomId = roomField.getValue().getId();
+            long guestId = guestField.getValue().getId();
 
 
             try {

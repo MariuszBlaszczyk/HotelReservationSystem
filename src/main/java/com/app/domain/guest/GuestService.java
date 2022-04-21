@@ -47,16 +47,16 @@ public class GuestService {
         guestRepository.readAllGuestsFromFile();
     }
 
-    public void removeGuestFromList(int guestId) {
+    public void removeGuestFromList(long guestId) {
         guestRepository.remove(guestId);
     }
 
-    public void editGuestFromList(int guestId, String firstName, String lastName, int age, int genderOption) {
+    public void editGuestFromList(long guestId, String firstName, String lastName, int age, int genderOption) {
         Gender gender = TextUI.chooseGenderFromNumberValue(genderOption);
         guestRepository.edit(guestId, firstName, lastName, age, gender);
     }
 
-    public Guest getGuestById(int guestId) {
+    public Guest getGuestById(long guestId) {
         return guestRepository.getById(guestId);
     }
 
