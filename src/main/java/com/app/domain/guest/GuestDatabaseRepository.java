@@ -12,7 +12,7 @@ public class GuestDatabaseRepository implements GuestRepository {
 
     private final static GuestRepository INSTANCE = new GuestDatabaseRepository();
 
-    private List<Guest> guests = new ArrayList<>();
+    private final List<Guest> guests = new ArrayList<>();
 
     public static GuestRepository getINSTANCE() {
         return INSTANCE;
