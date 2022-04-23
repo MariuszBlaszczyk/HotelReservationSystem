@@ -70,13 +70,13 @@ public class ReservationService {
     }
 
     public List<Reservation> getAllReservations() {
-        return ReservationRepository.getAll();
+        return this.reservationRepository.getAll();
     }
 
     public List<ReservationDTO> getReservationsAsDTO() {
         List<ReservationDTO> result = new ArrayList<>();
 
-        List<Reservation> reservations = ReservationRepository.getAll();
+        List<Reservation> reservations = this.reservationRepository.getAll();
 
         for (Reservation reservation : reservations) {
             ReservationDTO reservationDTO = reservation.generateDTO();

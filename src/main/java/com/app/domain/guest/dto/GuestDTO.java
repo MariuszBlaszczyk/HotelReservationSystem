@@ -1,7 +1,6 @@
 package com.app.domain.guest.dto;
 
-public record GuestDTO(long id, String firstName, String lastName, int age,
-                       String gender) {
+public record GuestDTO(long id, String firstName, String lastName, int age, String gender) {
 
     public long getId() {
         return id;

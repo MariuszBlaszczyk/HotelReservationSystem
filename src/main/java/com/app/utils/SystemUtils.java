@@ -66,9 +66,12 @@ public class SystemUtils {
             Class.forName("org.h2.Driver");
             connection = DriverManager.getConnection("jdbc:h2:~/reservationSystem", "test", "");
             Statement statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS ROOMS(ID INT PRIMARY KEY AUTO_INCREMENT, ROOM_NUMBER INT NOT NULL UNIQUE)");
-            statement.execute("CREATE TABLE IF NOT EXISTS BEDS(ID INT PRIMARY KEY AUTO_INCREMENT, ROOM_ID INT NOT NULL, BED VARCHAR2(55), " +
+            statement.execute("CREATE TABLE IF NOT EXISTS ROOMS(ID LONG PRIMARY KEY AUTO_INCREMENT, ROOM_NUMBER INT NOT NULL UNIQUE)");
+            statement.execute("CREATE TABLE IF NOT EXISTS BEDS(ID LONG PRIMARY KEY AUTO_INCREMENT, ROOM_ID LONG NOT NULL, BED VARCHAR2(55), " +
                     "FOREIGN KEY (ROOM_ID) REFERENCES ROOMS(ID))");
+            statement.execute("CREATE TABLE IF NOT EXISTS GUESTS(ID LONG PRIMARY KEY AUTO_INCREMENT, FIRST_NAME VARCHAR2(100) NOT NULL ," +
+                    "LAST_NAME VARCHAR2(100) NOT NULL , AGE NUMBER NOT NULL, GENDER VARCHAR2(50) NOT NULL)");
+
             System.out.println("Successfully establishing a connection to the database.");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error while creating connection to database" + e.getMessage());
