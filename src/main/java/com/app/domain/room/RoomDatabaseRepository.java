@@ -65,9 +65,11 @@ public class RoomDatabaseRepository implements RoomRepository {
             String query = String.format(insertRoomTemplate, roomNumber);
             statement.execute(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet resultSet = statement.getGeneratedKeys();
+
             long newId = -1;
             while (resultSet.next()) {
                 newId = resultSet.getLong(1);
+
             }
 
 

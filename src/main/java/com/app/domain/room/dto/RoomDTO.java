@@ -19,4 +19,7 @@ public record RoomDTO(long id, int number, String beds, int bedsCount, int roomS
     }
 
 
+    public int getRoomSize() {
+        return roomSize;
+    }
 }
