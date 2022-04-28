@@ -64,8 +64,10 @@ public class AddNewRoomScene {
         addNewRoomButton.setOnAction(actionEvent -> {
                     int newRoomNumber = Integer.parseInt(numberField.getText());
                     List<String> bedTypes = new ArrayList<>();
+
                     this.comboBoxes.forEach(comboBoxes ->
                             bedTypes.add(comboBoxes.getValue()));
+
                     this.roomService.createNewRoom(newRoomNumber, bedTypes);
 
                     tableView.getItems().clear();

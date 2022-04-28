@@ -80,7 +80,7 @@ public class EditRoomScene {
                     List<String> bedTypes = new ArrayList<>();
                     this.comboBoxes.forEach(comboBoxes ->
                             bedTypes.add(comboBoxes.getValue()));
-                    this.roomService.editRoomFromList(roomDTO.getId(),newRoomNumber, bedTypes);//
+                    this.roomService.editRoomFromList(roomDTO.getId(),newRoomNumber, bedTypes);
 
                     tableView.getItems().clear();
 

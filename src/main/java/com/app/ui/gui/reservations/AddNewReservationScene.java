@@ -29,6 +29,7 @@ public class AddNewReservationScene {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setVgap(15);
+
         Label fromDateLabel = new Label("Start date of reservation: ");
         DatePicker fromDateField = new DatePicker();
 
@@ -102,11 +103,8 @@ public class AddNewReservationScene {
 
         this.mainScene = new Scene(gridPane, 740, 580);
 
-        this.mainScene.getStylesheets()
-                .add(Objects.requireNonNull(getClass()
-                                .getClassLoader()
-                                .getResource("hotelReservation.css"))
-                        .toExternalForm());
+        this.mainScene.getStylesheets().add(getClass().getClassLoader()
+                .getResource("hotelReservation.css").toExternalForm());
     }
 
 

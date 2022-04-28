@@ -106,8 +106,8 @@ public class RoomFileRepository implements RoomRepository {
     private long findNewIdForTheRoom() {
         long max = 0;
         for (Room room : rooms) {
-            if (room.id() > max) {
-                max = room.id();
+            if (room.getId() > max) {
+                max = room.getId();
             }
         }
         return max + 1;
@@ -117,7 +117,7 @@ public class RoomFileRepository implements RoomRepository {
     public void remove(long roomId) {
         int roomToBeRemoved = -1;
         for (int i = 0; i < rooms.size(); i++) {
-            if (rooms.get(i).id() == roomId) {
+            if (rooms.get(i).getId() == roomId) {
                 roomToBeRemoved = i;
                 break;
             }
@@ -136,7 +136,7 @@ public class RoomFileRepository implements RoomRepository {
     @Override
     public Room getById(long roomId) {
         for (Room room : rooms) {
-            if (room.id() == roomId) {
+            if (room.getId() == roomId) {
                 return room;
             }
         }

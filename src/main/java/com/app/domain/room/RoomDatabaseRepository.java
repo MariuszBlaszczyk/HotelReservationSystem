@@ -50,6 +50,7 @@ public class RoomDatabaseRepository implements RoomRepository {
                 }
                 this.getById(roomId).addBed(bedTypeAsEnum);
             }
+            statement.close();
 
         } catch (SQLException e) {
             System.out.println("Error loading data from database");
@@ -101,8 +102,8 @@ public class RoomDatabaseRepository implements RoomRepository {
         try {
             Statement statement = SystemUtils.connection.createStatement();
 
-            String removeBedQuery = String.format(removeBedsTemplate, roomId);
-            statement.execute(removeBedQuery);
+            String removeBedsQuery = String.format(removeBedsTemplate, roomId);
+            statement.execute(removeBedsQuery);
             String removeRoomTemplate = "DELETE FROM ROOMS WHERE ID = %d";
             String removeRoomQuery = String.format(removeRoomTemplate, roomId);
             statement.execute(removeRoomQuery);
@@ -119,7 +120,7 @@ public class RoomDatabaseRepository implements RoomRepository {
     private void removeById(long roomId) {
         int indexToBeRemoved = -1;
         for (int i = 0; i < this.rooms.size(); i++) {
-            if (this.rooms.get(i).id() == roomId) {
+            if (this.rooms.get(i).getId() == roomId) {
                 indexToBeRemoved = i;
             }
         }
@@ -161,7 +162,7 @@ public class RoomDatabaseRepository implements RoomRepository {
     @Override
     public Room getById(long roomId) {
         for (Room room : rooms) {
-            if (room.id() == roomId) {
+            if (room.getId() == roomId) {
                 return room;
             }
         }

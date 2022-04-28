@@ -27,19 +27,20 @@ public class GuestFileRepository implements GuestRepository {
     @Override
     public Guest createNewGuest(String firstName, String lastName, int age, Gender gender) {
         Guest newGuest = new Guest(findNewIdForTheGuest(), firstName, lastName, age, gender);
-        guests.add(newGuest);
+        this.guests.add(newGuest);
         return newGuest;
     }
 
-    void addExistingGuest(long id, String firstName, String lastName, int age, Gender gender) {
+    Guest addExistingGuest(long id, String firstName, String lastName, int age, Gender gender) {
         Guest newGuest = new Guest(id, firstName, lastName, age, gender);
-        guests.add(newGuest);
+        this.guests.add(newGuest);
+        return newGuest;
     }
 
 
     @Override
     public List<Guest> getAll() {
-        return guests;
+        return this.guests;
     }
 
     @Override
@@ -93,8 +94,8 @@ public class GuestFileRepository implements GuestRepository {
     private long findNewIdForTheGuest() {
         long max = 0;
         for (Guest guest : this.guests) {
-            if (guest.id() > max) {
-                max = guest.id();
+            if (guest.getId() > max) {
+                max = guest.getId();
             }
         }
         return max + 1;
@@ -104,7 +105,7 @@ public class GuestFileRepository implements GuestRepository {
     public void remove(long guestId) {
         int guestToBeRemoved = -1;
         for (int i = 0; i < guests.size(); i++) {
-            if (guests.get(i).id() == guestId) {
+            if (guests.get(i).getId() == guestId) {
                 guestToBeRemoved = i;
                 break;
             }
@@ -116,14 +117,14 @@ public class GuestFileRepository implements GuestRepository {
 
     @Override
     public void edit(long guestId, String firstName, String lastName, int age, Gender gender) {
-        remove(guestId);
-        addExistingGuest(guestId, firstName, lastName, age, gender);
+        this.remove(guestId);
+        this.addExistingGuest(guestId, firstName, lastName, age, gender);
     }
 
     @Override
     public Guest getById(long guestId) {
-        for (Guest guest : guests) {
-            if (guest.id() == guestId) {
+        for (Guest guest : this.guests) {
+            if (guest.getId() == guestId) {
                 return guest;
             }
         }

@@ -22,18 +22,17 @@ public class GuestDatabaseRepository implements GuestRepository {
     public Guest createNewGuest(String firstName, String lastName, int age, Gender gender) {
         try {
             Statement statement = SystemUtils.connection.createStatement();
-
-            String createGuestTemplate = "INSERT INTO GUESTS(FIRST_NAME. LAST_NAME, AGE, GENDER) VALUES ('%s', '%s', %d, 's')";
+            String createGuestTemplate = "INSERT INTO GUESTS(FIRST_NAME, LAST_NAME, AGE, GENDER) VALUES('%s','%s',%d,'%s')";
             String createGuestQuery = String.format(createGuestTemplate, firstName, lastName, age, gender.toString());
             statement.execute(createGuestQuery, Statement.RETURN_GENERATED_KEYS);
-            ResultSet guestResultSet = statement.getGeneratedKeys();
-            long guestNewId = -1;
-            while (guestResultSet.next()) {
-                guestNewId = guestResultSet.getLong(1);
+            ResultSet rs = statement.getGeneratedKeys();
+            long newId = -1;
+            while (rs.next()) {
+                newId = rs.getLong(1);
             }
             statement.close();
 
-            Guest newGuest = new Guest(guestNewId, firstName, lastName, age, gender);
+            Guest newGuest = new Guest(newId, firstName, lastName, age, gender);
             this.guests.add(newGuest);
             return newGuest;
         } catch (SQLException e) {
@@ -56,26 +55,28 @@ public class GuestDatabaseRepository implements GuestRepository {
     @Override
     public void readAllGuestsFromFile() {
         try {
-            Statement statement = SystemUtils.connection.createStatement();
-            ResultSet guestResultSet = statement.executeQuery("SELECT * FROM GUESTS");
+                Statement statement = SystemUtils.connection.createStatement();
+                ResultSet rs = statement.executeQuery("SELECT * FROM GUESTS");
 
-            while (guestResultSet.next()) {
-                long id = guestResultSet.getLong(1);
-                String firstName = guestResultSet.getString(2);
-                String lastName = guestResultSet.getString(3);
-                int age = guestResultSet.getInt(4);
-                String genderAsString = guestResultSet.getString(5);
+                while (rs.next()) {
+                    long id = rs.getLong(1);
+                    String firstName = rs.getString(2);
+                    String lastName = rs.getString(3);
+                    int age = rs.getInt(4);
 
-                Gender gender = Gender.FEMALE;
-                if (SystemUtils.MALE.equals(genderAsString)) {
-                    gender = Gender.MALE;
+                    String genderAsString = rs.getString(5);
+
+                    Gender gender = Gender.FEMALE;
+
+                    if (SystemUtils.MALE.equals(genderAsString)) {
+                        gender = Gender.MALE;
+                    }
+
+                    Guest newGuest = new Guest(id, firstName, lastName, age, gender);
+                    this.guests.add(newGuest);
                 }
 
-                Guest newGuest = new Guest(id, firstName, lastName, age, gender);
-                this.guests.add(newGuest);
-            }
-
-            statement.close();
+                statement.close();
 
         } catch (SQLException e) {
             System.out.println("Error loading data.");
@@ -105,7 +106,7 @@ public class GuestDatabaseRepository implements GuestRepository {
             Statement statement = SystemUtils.connection.createStatement();
             String updateTemplate = "UPDATE GUESTS SET FIRST_NAME='%s', LAST_NAME='%s', AGE=%d, GENDER='%s' WHERE ID=%d";
             String updateQuery = String.format(updateTemplate, firstName, lastName, age, gender.toString(), guestId);
-            statement.execute(updateQuery);
+            statement.executeUpdate(updateQuery);
             statement.close();
 
             this.removeById(guestId);
@@ -120,7 +121,7 @@ public class GuestDatabaseRepository implements GuestRepository {
         int indexToBeRemoved = -1;
 
         for (int i = 0; i < this.guests.size(); i++) {
-            if (this.guests.get(i).id() == guestId) {
+            if (this.guests.get(i).getId() == guestId) {
                 indexToBeRemoved = i;
                 break;
 
@@ -134,7 +135,7 @@ public class GuestDatabaseRepository implements GuestRepository {
     @Override
     public Guest getById(long guestId) {
         for (Guest guest : this.guests) {
-            if (guest.id() == guestId) {
+            if (guest.getId() == guestId) {
                 return guest;
             }
         }

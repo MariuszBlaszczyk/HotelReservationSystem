@@ -22,9 +22,9 @@ public class SystemUtils {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public static final int HOTEL_NIGHT_START_HOUR = 15;
-    public static final int HOTEL_NIGHT_START_MINUTE = 00;
+    public static final int HOTEL_NIGHT_START_MINUTE = 0;
     public static final int HOTEL_NIGHT_END_HOUR = 10;
-    public static final int HOTEL_NIGHT_END_MINUTE = 00;
+    public static final int HOTEL_NIGHT_END_MINUTE = 0;
 
     public static final String SINGLE_BED = "Single";
     public static final String DOUBLE_BED = "Double";
@@ -66,14 +66,14 @@ public class SystemUtils {
             Class.forName("org.h2.Driver");
             connection = DriverManager.getConnection("jdbc:h2:~/reservationSystem/ipinbarbot;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE", "test", "");
             Statement statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS ROOMS(ID LONG PRIMARY KEY AUTO_INCREMENT, ROOM_NUMBER INT NOT NULL UNIQUE)");
-            statement.execute("CREATE TABLE IF NOT EXISTS BEDS(ID LONG PRIMARY KEY AUTO_INCREMENT, ROOM_ID LONG NOT NULL, BED VARCHAR2(55), " +
-                    "FOREIGN KEY (ROOM_ID) REFERENCES ROOMS(ID))");
-            statement.execute("CREATE TABLE IF NOT EXISTS GUESTS(ID LONG PRIMARY KEY AUTO_INCREMENT, FIRST_NAME VARCHAR2(100) NOT NULL ," +
-                    "LAST_NAME VARCHAR2(100) NOT NULL , AGE NUMBER NOT NULL, GENDER VARCHAR2(50) NOT NULL)");
-            statement.execute("CREATE TABLE IF NOT EXISTS RESERVATIONS(ID LONG PRIMARY KEY AUTO_INCREMENT, ROOM_ID LONG NOT NULL," +
-                    "GUEST_ID LONG NOT NULL, RES_FROM SMALLDATETIME NOT NULL, RES_TO SMALLDATETIME NOT NULL, FOREIGN KEY (ROOM_ID) " +
-                    "REFERENCES  ROOMS(ID), FOREIGN KEY (GUEST_ID) REFERENCES GUESTS(ID))");
+            statement.execute("CREATE TABLE IF NOT EXISTS ROOMS(ID INT PRIMARY KEY AUTO_INCREMENT, ROOM_NUMBER INT NOT NULL UNIQUE)");
+            statement.execute("CREATE TABLE IF NOT EXISTS BEDS(ID INT PRIMARY KEY AUTO_INCREMENT, ROOM_ID INT NOT NULL, BED VARCHAR2(55)," +
+                    " FOREIGN KEY (ROOM_ID) REFERENCES ROOMS(ID))");
+            statement.execute("CREATE TABLE IF NOT EXISTS GUESTS(ID INT PRIMARY KEY AUTO_INCREMENT, FIRST_NAME VARCHAR2(100) NOT NULL , " +
+                    "LAST_NAME VARCHAR2(100) NOT NULL, AGE NUMBER NOT NULL, GENDER VARCHAR2(25) NOT NULL)");
+            statement.execute("CREATE TABLE IF NOT EXISTS RESERVATIONS(ID INT PRIMARY KEY AUTO_INCREMENT, ROOM_ID INT NOT NULL, " +
+                    "GUEST_ID INT NOT NULL, RES_FROM SMALLDATETIME NOT NULL, RES_TO SMALLDATETIME NOT NULL, FOREIGN KEY (ROOM_ID) REFERENCES ROOMS(ID), " +
+                    "FOREIGN KEY (GUEST_ID) REFERENCES GUESTS(ID))");
 
             System.out.println("Successfully establishing a connection to the database.");
         } catch (ClassNotFoundException | SQLException e) {

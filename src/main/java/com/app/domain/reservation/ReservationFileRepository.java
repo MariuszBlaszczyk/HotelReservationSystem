@@ -25,7 +25,7 @@ public class ReservationFileRepository implements ReservationRepository {
     GuestService guestService = ObjectPool.getGuestService();
     RoomService roomService = ObjectPool.getRoomService();
 
-    static List<Reservation> reservations = new ArrayList<>();
+    List<Reservation> reservations = new ArrayList<>();
 
     private ReservationFileRepository() {
     }
@@ -37,7 +37,7 @@ public class ReservationFileRepository implements ReservationRepository {
     @Override
     public Reservation createNewReservation(Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
         Reservation reservation = new Reservation(findNewIdForReservation(), room, guest, from, to);
-        reservations.add(reservation);
+        this.reservations.add(reservation);
         return reservation;
     }
 
@@ -58,8 +58,8 @@ public class ReservationFileRepository implements ReservationRepository {
                     continue;
                 }
                 long id = Long.parseLong(reservationData[0]);
-                long roomId = Integer.parseInt(reservationData[1]);
-                long guestId = Integer.parseInt(reservationData[2]);
+                long roomId = Long.parseLong(reservationData[1]);
+                long guestId = Long.parseLong(reservationData[2]);
                 String fromAsString = reservationData[3];
                 String toAsString = reservationData[4];
                 addExistingReservation(id, this.roomService.getRoomById(roomId),
@@ -95,21 +95,21 @@ public class ReservationFileRepository implements ReservationRepository {
 
     @Override
     public List<Reservation> getAll() {
-        return reservations;
+        return this.reservations;
     }
 
 
     @Override
     public void remove(long reservationId) {
         int reservationToBeRemoved = -1;
-        for (int i = 0; i < reservations.size(); i++) {
-            if (reservations.get(i).id() == reservationId) {
+        for (int i = 0; i < this.reservations.size(); i++) {
+            if (this.reservations.get(i).getId() == reservationId) {
                 reservationToBeRemoved = i;
                 break;
             }
         }
         if (reservationToBeRemoved > -1) {
-            reservations.remove(reservationToBeRemoved);
+            this.reservations.remove(reservationToBeRemoved);
         }
     }
 
@@ -122,9 +122,9 @@ public class ReservationFileRepository implements ReservationRepository {
 
     long findNewIdForReservation() {
         long max = 0;
-        for (Reservation reservation : ReservationFileRepository.reservations) {
-            if (reservation.id() > max) {
-                max = reservation.id();
+        for (Reservation reservation : this.reservations) {
+            if (reservation.getId() > max) {
+                max = reservation.getId();
             }
         }
         return max + 1;

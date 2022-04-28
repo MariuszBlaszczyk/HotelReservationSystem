@@ -36,29 +36,30 @@ public class GuestService {
 
 
     public List<Guest> getAllGuests() {
-        return guestRepository.getAll();
+        return this.guestRepository.getAll();
     }
 
     public void writeAllGuestsToFile() {
-        guestRepository.writeAllGuestsToFile();
+        this.guestRepository.writeAllGuestsToFile();
     }
 
     public void readAllGuestsFromFile() {
-        guestRepository.readAllGuestsFromFile();
+        this.guestRepository.readAllGuestsFromFile();
     }
 
     public void removeGuestFromList(long guestId) {
-        guestRepository.remove(guestId);
+        this.guestRepository.remove(guestId);
     }
 
     public void editGuestFromList(long guestId, String firstName, String lastName, int age, int genderOption) {
         Gender gender = TextUI.chooseGenderFromNumberValue(genderOption);
-        guestRepository.edit(guestId, firstName, lastName, age, gender);
+       this.guestRepository.edit(guestId, firstName, lastName, age, gender);
     }
 
     public Guest getGuestById(long guestId) {
-        return guestRepository.getById(guestId);
+        return this.guestRepository.getById(guestId);
     }
+
 
     public List<GuestDTO> getGuestsAsDTO() {
         List<GuestDTO> result = new ArrayList<>();
@@ -66,7 +67,7 @@ public class GuestService {
         List<Guest> allGuests = guestRepository.getAll();
 
         for (Guest guest : allGuests) {
-            GuestDTO guestDTO = guest.generateDTO();
+            GuestDTO guestDTO = guest.getAsDTO();
             result.add(guestDTO);
         }
         return result;

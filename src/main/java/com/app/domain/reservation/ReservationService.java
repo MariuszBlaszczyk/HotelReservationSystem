@@ -29,8 +29,8 @@ public class ReservationService {
     }
 
     public Reservation createNewReservation(LocalDate from, LocalDate to, long roomId, long guestId) throws IllegalArgumentException {
-        Room room = roomService.getRoomById(roomId);
-        Guest guest = guestService.getGuestById(guestId);
+        Room room = this.roomService.getRoomById(roomId);
+        Guest guest = this.guestService.getGuestById(guestId);
 
         LocalDateTime fromWithTime = from.atTime(SystemUtils.HOTEL_NIGHT_START_HOUR, SystemUtils.HOTEL_NIGHT_START_MINUTE);
         LocalDateTime toWithTime = to.atTime(SystemUtils.HOTEL_NIGHT_END_HOUR, SystemUtils.HOTEL_NIGHT_END_MINUTE);
@@ -52,7 +52,7 @@ public class ReservationService {
     }
 
     public void removeReservationFromList(long reservationId) {
-        reservationRepository.remove(reservationId);
+        this.reservationRepository.remove(reservationId);
     }
 
     public void editReservation(long reservationId, LocalDate from, LocalDate to, long roomId, long guestId) {
@@ -79,7 +79,7 @@ public class ReservationService {
         List<Reservation> reservations = this.reservationRepository.getAll();
 
         for (Reservation reservation : reservations) {
-            ReservationDTO reservationDTO = reservation.generateDTO();
+            ReservationDTO reservationDTO = reservation.getAsDTO();
             result.add(reservationDTO);
         }
         return result;
