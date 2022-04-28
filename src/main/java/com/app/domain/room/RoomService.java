@@ -43,7 +43,7 @@ public class RoomService {
                 case SystemUtils.SINGLE_BED -> BedType.SINGLE;
                 case SystemUtils.DOUBLE_BED -> BedType.DOUBLE;
                 case SystemUtils.KINGSIZE_BED -> BedType.KINGSIZE;
-                default -> throw new WrongOptionException("Wrong option when selecting bed type");
+                default -> throw new WrongOptionException("Wrong option when selecting bed type.");
             };
 
             bedTypes[i] = bedType;
@@ -65,7 +65,7 @@ public class RoomService {
             } else if (bedTypesOptions[i] == 3) {
                 bedType = BedType.KINGSIZE;
             } else {
-                throw new WrongOptionException("Wrong option when selecting bed type");
+                throw new WrongOptionException("Wrong option when selecting bed type.");
             }
 
             bedTypes[i] = bedType;
