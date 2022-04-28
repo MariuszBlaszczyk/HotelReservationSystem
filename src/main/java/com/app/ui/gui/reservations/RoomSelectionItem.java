@@ -21,14 +21,6 @@ public final class RoomSelectionItem {
         return number;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%d", this.number);
-    }
-
-    public long id() {
-        return id;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -42,6 +34,11 @@ public final class RoomSelectionItem {
     @Override
     public int hashCode() {
         return Objects.hash(number, id);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d", this.number);
     }
 
 }

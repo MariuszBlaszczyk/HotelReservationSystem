@@ -12,7 +12,7 @@ public final class Room {
 
     private final long id;
     private int number;
-    private List<BedType> beds = new ArrayList<>();
+    private List<BedType> beds;
 
     Room(long id, int number, List<BedType> bedTypes) {
         this.id = id;

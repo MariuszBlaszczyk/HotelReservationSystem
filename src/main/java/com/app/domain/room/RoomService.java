@@ -3,7 +3,6 @@ package com.app.domain.room;
 import com.app.domain.ObjectPool;
 import com.app.domain.room.dto.RoomDTO;
 import com.app.exceptions.WrongOptionException;
-import com.app.ui.text.TextUI;
 import com.app.utils.SystemUtils;
 
 import java.util.ArrayList;
@@ -29,9 +28,9 @@ public class RoomService {
     }
 
 
-    public Room createNewRoom(int roomNumber, List<String> bedTypeAsString) {
+    public void createNewRoom(int roomNumber, List<String> bedTypeAsString) {
         List<BedType> bedTypes = getBedTypes(bedTypeAsString);
-        return roomRepository.createNewRoom(roomNumber, bedTypes);
+        roomRepository.createNewRoom(roomNumber, bedTypes);
     }
 
 
@@ -40,17 +39,12 @@ public class RoomService {
 
         for (int i = 0; i < bedTypesAsString.size(); i = i + 1) {
 
-            BedType bedType;
-
-            if (bedTypesAsString.get(i).equals(SystemUtils.SINGLE_BED)) {
-                bedType = BedType.SINGLE;
-            } else if (bedTypesAsString.get(i).equals(SystemUtils.DOUBLE_BED)) {
-                bedType = BedType.DOUBLE;
-            } else if (bedTypesAsString.get(i).equals(SystemUtils.KINGSIZE_BED)) {
-                bedType = BedType.KINGSIZE;
-            } else {
-                throw new WrongOptionException("Wrong option when selecting bed type");
-            }
+            BedType bedType = switch (bedTypesAsString.get(i)) {
+                case SystemUtils.SINGLE_BED -> BedType.SINGLE;
+                case SystemUtils.DOUBLE_BED -> BedType.DOUBLE;
+                case SystemUtils.KINGSIZE_BED -> BedType.KINGSIZE;
+                default -> throw new WrongOptionException("Wrong option when selecting bed type");
+            };
 
             bedTypes[i] = bedType;
         }
