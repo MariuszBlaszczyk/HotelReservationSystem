@@ -56,7 +56,6 @@ public class RoomTest {
 
     @Test
     public void toDTOFromRoomWithNullBedsList() {
-
         Room room = new Room(1, 10, null);
 
         RoomDTO roomDTO = room.generateDTO();
