@@ -17,7 +17,11 @@ public final class Room {
     Room(long id, int number, List<BedType> bedTypes) {
         this.id = id;
         this.number = number;
-        beds = bedTypes;
+        if (bedTypes == null) {
+            beds = new ArrayList<>();
+        } else {
+            beds = bedTypes;
+        }
     }
 
     public long getId() {
@@ -107,5 +111,9 @@ public final class Room {
                 "- room number: " + number + "\n" +
                 "- number of beds: " + beds.size() + "\n" +
                 "- type of bed: " + beds + "\n";
+    }
+
+    public List<BedType> getBeds() {
+        return this.beds;
     }
 }
