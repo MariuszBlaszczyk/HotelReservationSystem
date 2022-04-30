@@ -32,6 +32,11 @@ public final class Room {
         return number;
     }
 
+
+    public List<BedType> getBeds() {
+        return this.beds;
+    }
+
     void setNumber(int numberRoom) {
         this.number = numberRoom;
     }
@@ -113,7 +118,4 @@ public final class Room {
                 "- type of bed: " + beds + "\n";
     }
 
-    public List<BedType> getBeds() {
-        return this.beds;
-    }
 }
